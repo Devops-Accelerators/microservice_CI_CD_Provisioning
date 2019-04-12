@@ -15,10 +15,7 @@ node {
 	checkout scm
 	workspace = pwd() 
 	     sh "ls -lat"
-	FileInputStream in = new FileInputStream("seedJob.properties");
-Properties props = new Properties();
-props.load(in);
-in.close();
+	sh """chmod +x seedJob.properties"""
 	FileOutputStream out = new FileOutputStream("seedJob.properties");
 	    props.setProperty("microserviceName", "${MicroserviceName}");
 	    props.setProperty("port", "${Port}");
