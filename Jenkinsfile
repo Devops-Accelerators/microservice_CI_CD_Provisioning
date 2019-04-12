@@ -53,7 +53,7 @@ node {
 		{
 				
 		}
- 
+}
 def createpipelinejob(String jobName, String gitURL)
 {
     jobDsl failOnMissingPlugin: true, 
@@ -82,5 +82,4 @@ def createpipelinejob(String jobName, String gitURL)
                         						}
                         			}
                         }"""
-}
 }
