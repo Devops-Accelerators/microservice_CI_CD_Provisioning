@@ -18,7 +18,7 @@ node {
 		{
 				checkout scm
         workspace = pwd ()
-				props = readProperties  file: """properties/seedjob.properties"""
+				props = readProperties  file: """seedJob.properties"""
         microserviceName = sh(returnStdout: true, script: """echo ${microserviceName.trim()} | sed 's/[\\._-]//g'""").trim()
 				microserviceName = microserviceName.toLowerCase()
 				commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
