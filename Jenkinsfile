@@ -16,6 +16,7 @@ node {
     
     stage ('Static Code Analysis')
     { 
+	    sonarexec ""
     }
     
      stage ('Build and Unit Test Execution')
