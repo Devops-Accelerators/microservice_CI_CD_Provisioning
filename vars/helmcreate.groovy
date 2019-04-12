@@ -1,13 +1,12 @@
 def call (){
 
 #create the helm chart
-sh "helm create ${chart_name}"
+sh "helm create ${microserviceName}"
 sh """
 	cat <<EOF > helmcreate.sh
 #!/bin/bash
 sed -i "s/nginx/${image}/g" ${chart_name}/values.yaml
 sed -i "s/stable/${tag}/g" ${chart_name}/values.yaml
-sed -i "s/0.1.0/${version}/g" ${chart_name}/Chart.yaml
 sed -i "s/80/${container_port}/g" ${chart_name}/templates/deployment.yaml
 EOF"""
 	sh 'chmod +x helmcreate.sh'
