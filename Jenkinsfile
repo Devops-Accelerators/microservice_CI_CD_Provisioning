@@ -9,7 +9,7 @@ node {
     {
 			checkout scm
 			workspace = pwd ()
-			branch=sh(returnStdout: true, script: '''git symbolic-ref  .git/HEAD''').trim()
+			
     }
     
     
