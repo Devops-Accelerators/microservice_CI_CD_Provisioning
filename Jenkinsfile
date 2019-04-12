@@ -8,6 +8,9 @@ def appDeployProcess;
 def dockerImage;
 def configserveruri='';
 def props='';
+def microserviceName=${MicroserviceName};
+def port;
+def gitUrl;
 
 node {
     stage('Checkout Code')
@@ -15,13 +18,15 @@ node {
 	checkout scm
 	workspace = pwd() 
 	     sh "ls -lat"
-	sh """chmod +x seedJob.properties"""
-	FileOutputStream out = new FileOutputStream("seedJob.properties");
-	    props.setProperty("microserviceName", "${MicroserviceName}");
-	    props.setProperty("port", "${Port}");
-	    props.setProperty("gitUrl", "${GitUrl}");
-	    props.store(out, null);
-	    out.close();
+	    microserviceName= sh(returnStdout:true, script: """echo ${microserviceName.trim()} | sed 's/[\\._-]//g'""").trim() 
+	    microserviceName= microserviceName.toLowerCase()
+	//sh """chmod +x seedJob.properties"""
+	//FileOutputStream out = new FileOutputStream("seedJob.properties");
+	   // props.setProperty("microserviceName", "${MicroserviceName}");
+	   // props.setProperty("port", "${Port}");
+	  //  props.setProperty("gitUrl", "${GitUrl}");
+	  //  props.store(out, null);
+	  //  out.close();
     }
     
     stage ('Static Code Analysis')
