@@ -37,6 +37,12 @@ node {
     { 
     }
     
-    
+    stage ('Create job')
+    { 
+    }
+	
+    stage ('add pipeline to github repo')
+    { 
+    }
 }
 		
