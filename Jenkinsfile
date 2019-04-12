@@ -7,7 +7,7 @@ def appDeployProcess;
 def dockerImage;
 def configserveruri='';
 def props='';
-def microserviceName=${MicroserviceName};
+def microserviceName;
 def port;
 def gitUrl;
 
@@ -17,6 +17,7 @@ node {
 	checkout scm
 	workspace = pwd() 
 	     sh "ls -lat"
+	   
 	   // microserviceName= sh(returnStdout:true, script: """echo ${microserviceName.trim()} | sed 's/[\\._-]//g'""").trim() 
 	   // microserviceName= microserviceName.toLowerCase()
 	    //echo "${microserviceName}"
