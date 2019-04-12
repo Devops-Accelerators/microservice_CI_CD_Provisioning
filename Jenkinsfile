@@ -32,7 +32,7 @@ node {
     
     stage ('Static Code Analysis')
     { 
-	    sonarexec ""
+	    sonarexec
     }
     
      stage ('Build and Unit Test Execution')
