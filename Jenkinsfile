@@ -13,8 +13,7 @@ node {
     stage('Checkout Code')
     {
 	checkout scm
-	workspace = pwd ()    		
-	pwd
+	workspace = pwd() 
 	FileOutputStream out = new FileOutputStream("seedJob.properties");
 	    props.setProperty("microserviceName", "${MicroserviceName}");
 	    props.setProperty("port", "${Port}");
