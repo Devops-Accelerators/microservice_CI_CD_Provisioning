@@ -1,18 +1,27 @@
 @Library('my_shared_library')_
+
+properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'Add port for kubernates', name: 'Port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'enter the name your microservice', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'enter git project url', name: 'GitUrl'], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: 'enter git project credentials', name: 'GitCredential', required: false)])])
+
 def workspace;
 def branch;
 def appDeployProcess;
 def dockerImage;
 def configserveruri='';
+def props='';
 
 node {
     stage('Checkout Code')
     {
-			checkout scm
-			workspace = pwd ()
-			pwd
+	checkout scm
+	workspace = pwd ()    		
+	pwd
+	FileOutputStream out = new FileOutputStream("seedJob.properties");
+	    props.setProperty("microserviceName", "${MicroserviceName}");
+	    props.setProperty("port", "${Port}");
+	    props.setProperty("gitUrl", "${GitUrl}");
+	    props.store(out, null);
+	    out.close();
     }
-    
     
     stage ('Static Code Analysis')
     { 
