@@ -1,6 +1,5 @@
-@Library('my_shared_library')_
-
 properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'Add port for kubernates', name: 'Port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'enter the name your microservice', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'enter git project url', name: 'GitUrl'], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: 'enter git project credentials', name: 'GitCredential', required: false)])])
+@Library('my_shared_library')_
 
 def workspace;
 def branch;
