@@ -10,6 +10,9 @@ def props='';
 def microserviceName;
 def port;
 def gitUrl;
+def repoName;
+def Cusername;
+def Cemail;
 
 node {
     stage('Checkout Code')
@@ -64,7 +67,14 @@ node {
 	
     stage ('add pipeline to github repo')
     { 
-    }
+	    sh """ cd ${repoName.trim()}
+	    git config user.email ${Cemail}
+	    git config user.email ${Cusername}
+	    git add .
+	    git commit -m "pipeline added"
+	    git push -f origin master
+	    cd ..
+	    rm -rf ${repoName.trim()}"""    }
 	
      stage ('Create job')
     { 
