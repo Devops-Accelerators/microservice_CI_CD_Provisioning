@@ -36,13 +36,14 @@ node {
     stage ('Deploy to Kubernetes')
     { 
     }
-    
-    stage ('Create job')
-    { 
-    }
 	
     stage ('add pipeline to github repo')
     { 
     }
+	
+     stage ('Create job')
+    { 
+    }
+	
 }
 		
