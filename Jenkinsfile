@@ -83,3 +83,4 @@ def createpipelinejob(String jobName, String gitURL)
                         			}
                         }"""
 }
+}
