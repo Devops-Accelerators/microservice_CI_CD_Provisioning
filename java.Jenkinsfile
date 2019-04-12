@@ -1,4 +1,3 @@
-properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'Add port for kubernates', name: 'Port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'enter the name your microservice', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: 'enter git project url', name: 'GitUrl'], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: 'enter git project credentials', name: 'GitCredential', required: false)])])
 @Library('my_shared_library')_
 
 def workspace;
@@ -63,21 +62,6 @@ node {
     stage ('Deploy to Kubernetes')
     { 
     	helmcreate
-    }
-	
-    stage ('add pipeline to github repo')
-    { 
-	    sh """ cd ${repoName.trim()}
-	    git config user.email ${Cemail}
-	    git config user.email ${Cusername}
-	    git add .
-	    git commit -m "pipeline added"
-	    git push -f origin master
-	    cd ..
-	    rm -rf ${repoName.trim()}"""    }
-	
-     stage ('Create job')
-    { 
     }
 	
 }
