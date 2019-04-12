@@ -59,6 +59,7 @@ node {
     
     stage ('Deploy to Kubernetes')
     { 
+    	helmcreate
     }
 	
     stage ('add pipeline to github repo')
