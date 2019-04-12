@@ -1,8 +1,11 @@
 def call() {
-        def mvnHome =  tool name: 'mvn1', type: 'maven' 
-
-        withSonarQubeEnv('Sonarqube') {  
-
-          sh "${mvnHome}/bin/mvn sonar:sonar" 
+       def Sonarscanner = tool 'Sonarscanner';
+    withSonarQubeEnv('Sonarqube') 
+    {
+        sh """echo ${Sonarscanner}"""
+     sh  """${Sonarscanner}/sonar-scanner -Dsonar.host.url=http://ec2-34-244-155-32.eu-west-1.compute.amazonaws.com -Dsonar.login=admin -Dsonar.password=soumianisoumya@123"""
+        
+    }
+    
         }
 }
