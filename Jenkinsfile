@@ -9,7 +9,7 @@ node {
     {
 			checkout scm
 			workspace = pwd ()
-			
+			pwd
     }
     
     
