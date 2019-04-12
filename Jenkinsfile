@@ -20,17 +20,17 @@ node {
 	checkout scm
 	workspace = pwd() 
 	     sh "ls -lat"
-	   
-	   // microserviceName= sh(returnStdout:true, script: """echo ${microserviceName.trim()} | sed 's/[\\._-]//g'""").trim() 
-	   // microserviceName= microserviceName.toLowerCase()
-	    //echo "${microserviceName}"
-	//sh """chmod +x seedJob.properties"""
-	//FileOutputStream out = new FileOutputStream("seedJob.properties");
-	   // props.setProperty("microserviceName", "${MicroserviceName}");
-	   // props.setProperty("port", "${Port}");
-	  //  props.setProperty("gitUrl", "${GitUrl}");
-	  //  props.store(out, null);
-	  //  out.close();
+	     
+	    microserviceName= microserviceName.toLowerCase()
+	    echo "${microserviceName}"
+	    sh """chmod +w seedJob.properties"""
+	    FileOutputStream out = new FileOutputStream("seedJob.properties");
+	    props.setProperty("microserviceName", ${MicroserviceName});
+	    props.setProperty("port", ${Port});
+	    props.setProperty("gitUrl", ${GitUrl});
+	    props.store(out, null);
+	    out.close();
+	    sh "cat seedJob.properties"
     }
     
     stage ('Static Code Analysis')
