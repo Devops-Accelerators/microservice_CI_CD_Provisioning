@@ -21,7 +21,7 @@ node {
 	workspace = pwd() 
 	     sh "ls -lat"
 	     
-	    microserviceName= microserviceName.toLowerCase()
+	    microserviceName= ${MicroserviceName}.toLowerCase()
 	    echo "${microserviceName}"
 	    sh """chmod +w seedJob.properties"""
 	    FileOutputStream out = new FileOutputStream("seedJob.properties");
