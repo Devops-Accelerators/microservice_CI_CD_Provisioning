@@ -1,4 +1,6 @@
 def call(String args){
-  sh "docker-compose config"
-  sh "docker-compose up"
-}
+  echo "path=${args}"
+  dockerImage = docker.build("saumyaprashar/docker-demo:${BUILD_NUMBER}") 
+  sh "docker images"
+  return dockerImage
+  }
