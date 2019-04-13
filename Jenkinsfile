@@ -23,10 +23,12 @@ node {
 				microserviceName = microserviceName.toLowerCase()
 			sh"""echo ${microserviceName}""" 
 				commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
-                                                            echo "hi: ${username%@*} "''').trim();
+                                                            echo ${username%@*}''').trim();
 				commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
-                                                            echo ${Email}''').trim();
+                                                            echo $Email''').trim();
 				repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()} .git)""").trim();
+			sh"""echo ${commit_username}
+				echo ${commit_Email}"""
 			}
      
  stage ('Create CI Pipeline')
