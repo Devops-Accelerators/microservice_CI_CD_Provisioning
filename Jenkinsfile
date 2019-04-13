@@ -21,7 +21,8 @@ node {
 				props = readProperties  file: """seedJob.properties"""
         microserviceName = sh(returnStdout: true, script: """echo ${microserviceName} | sed 's/[\\._-]//g'""").trim()
 				microserviceName = microserviceName.toLowerCase()
-			sh"echo ${microserviceName}"
+			sh"""echo 'hi : ${microserviceName}'"""
+			sh"""pwd()"""
 				commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
                                                             echo ${username%@*} ''').trim();
 				commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
