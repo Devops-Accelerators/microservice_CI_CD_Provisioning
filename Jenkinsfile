@@ -46,8 +46,6 @@ node {
 def createpipelinejob(String jobName, String gitURL)
 {
     jobDsl failOnMissingPlugin: true, 
-           ignoreExisting: true, 
-           sandbox: true, 
            scriptText: """pipelineJob("${jobName}") {
                             parameters {
                                 stringParam("stageExecution", "deploy", "")
@@ -62,6 +60,7 @@ def createpipelinejob(String jobName, String gitURL)
                         								remote {
                         									name('remoteB')
                         									url('${gitURL}')
+												credentials('${gitCred}')
                         									}
                         									branch("*/master")
                         									extensions {}	
