@@ -19,6 +19,7 @@ node {
 				checkout scm
         workspace = pwd ()
 				props = readProperties  file: """seedJob.properties"""
+			sh"""echo 'hi : ${microserviceName}'"""
         microserviceName = sh(returnStdout: true, script: """echo ${microserviceName} | sed 's/[\\._-]//g'""").trim()
 				microserviceName = microserviceName.toLowerCase()
 			sh"""echo 'hi : ${microserviceName}'"""
