@@ -36,7 +36,7 @@ node {
 				
 							createpipelinejob(microserviceName.trim(), apiRepoURL.trim())
 						
-					}
+					
 		}
 	stage ('Create CD Pipeline')
 		{
