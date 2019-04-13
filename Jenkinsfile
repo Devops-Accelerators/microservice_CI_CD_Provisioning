@@ -33,23 +33,9 @@ node {
      
  stage ('Create CI Pipeline')
 		{
-				withCredentials([usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
-				{
-						def jobname=sh(returnStdout:true, script:"""curl -sSL  "http://${jenkinsAdminCredentials}@${props['jenkins.server']}/api/json?tree=jobs%5Bname%5D&pretty=true" | sort -u | paste -d, -s | tr -d '"' """).trim();
-						if("""${microserviceName}""" == """${jobname}""")
-						{
-							echo """This job already exist New job Name-${microserviceName}- Old job Name -${jobList[j]}"""
-							newjob=false;
-							break;
-						}
-						if (newjob)
-						{
+				
 							createpipelinejob(microserviceName.trim(), apiRepoURL.trim())
-						}
-						else
-						{
-							error("No New Job")
-						}
+						
 					}
 		}
 	stage ('Create CD Pipeline')
