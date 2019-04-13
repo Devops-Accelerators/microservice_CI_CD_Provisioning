@@ -1,4 +1,4 @@
-properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'microserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'gitUrl'], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
+properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'gitUrl'], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
 
 def branchName;
 def newJobname;
@@ -19,8 +19,8 @@ node {
 				checkout scm
         workspace = pwd ()
 				props = readProperties  file: """seedJob.properties"""
-			sh"""echo 'hi : ${microserviceName}'"""
-        microserviceName = sh(returnStdout: true, script: """echo ${microserviceName} | sed 's/[\\._-]//g'""").trim()
+			sh"""echo 'hi : ${MicroserviceName}'"""
+        microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceName} | sed 's/[\\._-]//g'""").trim()
 				microserviceName = microserviceName.toLowerCase()
 			sh"""echo 'hi : ${microserviceName}'"""
 			sh"""pwd()"""
