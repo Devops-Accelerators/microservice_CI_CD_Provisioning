@@ -35,7 +35,7 @@ node {
 		{
 				withCredentials([usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 				{
-						def jobname=sh(returnStdout:true, script:"""curl -sSL  "http://${jenkinsAdminCredentials}@${props['jenkins.server']}/api/json?tree=jobs%5Bname%5D&pretty=true" | jq .jobs[].name  | sort -u | paste -d, -s | tr -d '"' """).trim();
+						def jobname=sh(returnStdout:true, script:"""curl -sSL  "http://${jenkinsAdminCredentials}@${props['jenkins.server']}/api/json?tree=jobs%5Bname%5D&pretty=true" | sort -u | paste -d, -s | tr -d '"' """).trim();
 						if("""${microserviceName}""" == """${jobname}""")
 						{
 							echo """This job already exist New job Name-${microserviceName}- Old job Name -${jobList[j]}"""
