@@ -22,11 +22,8 @@ node {
         microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceName} | sed 's/[\\._-]//g'""").trim()
 				microserviceName = microserviceName.toLowerCase()
 			sh"""echo ${microserviceName}""" 
-				commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
-                                                            echo ${username%@*}''').trim();
-				commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
-                                                            echo $Email''').trim();
-				repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()} .git)""").trim();
+				
+				repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
 			sh"""echo ${commit_username}
 				echo ${commit_Email}"""
 			}
@@ -41,6 +38,36 @@ node {
 	stage ('Create CD Pipeline')
 		{
 				
+		}
+	stage ('Add pipeline Scripts to Repository')
+		{
+			withCredentials([usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
+					{
+					sh """git clone ${apiRepoURL}""".trim()
+						echo "Cloning is done here"
+						//add app name and definition file name
+								
+								sh """
+								rm -f ${repoName.trim()}/Jenkinsfile
+								echo "#second step is done"
+								
+								cd ${repoName.trim()}
+								 """
+
+								sh """ cd ${repoName.trim()}
+																					
+								cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile	
+								#change pipeline name in Jenkinsfile
+								sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile	
+	
+								
+								git add .
+								git commit -m "pipeline Scripts added by seed job"
+								git push -f origin master
+								cd ..
+								rm -rf ${repoName.trim()}"""
+					
+			}
 		}
 }
 def createpipelinejob(String jobName, String gitURL)
