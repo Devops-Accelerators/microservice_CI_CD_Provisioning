@@ -69,7 +69,7 @@ node {
 								git add .
 								git commit -m "pipeline Scripts added by seed job"
 								git remote rm origin
-								git remote add origin ${apiRepoURL.trim()}
+								git remote add origin ${apiRepoURL}
 								git remote -v
 								git push --set-upstream origin master
 								git config user.name ${commit_username}
