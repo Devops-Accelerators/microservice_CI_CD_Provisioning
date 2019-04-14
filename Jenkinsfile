@@ -22,10 +22,13 @@ node {
         microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceName} | sed 's/[\\._-]//g'""").trim()
 				microserviceName = microserviceName.toLowerCase()
 			sh"""echo ${microserviceName}""" 
-				
+				commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
+                                                            echo ${username%@*} ''').trim();
+			commit_username=sh(returnStdout: true, script: """echo ${commit_username} | sed 's/48236651+//g'""").trim()
 				repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
 				repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
 			sh"""echo ${repoName}
+			echo ${commit_username}
 				"""
 			}
      
@@ -62,7 +65,7 @@ node {
 								#change pipeline name in Jenkinsfile
 								sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile	
 	
-								
+								git config user.name ${commit_username}
 								git add .
 								git commit -m "pipeline Scripts added by seed job"
 								git push -f origin master
