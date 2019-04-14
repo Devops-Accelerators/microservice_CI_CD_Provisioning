@@ -73,13 +73,9 @@ node {
 def createpipelinejob(String jobName, String gitURL)
 {
     jobDsl failOnMissingPlugin: true, 
+	    sandbox: true,
            scriptText: """pipelineJob("${jobName}") {
-                            parameters {
-                                stringParam("stageExecution", "deploy", "")
-                                }
-                        	triggers {
-                                githubPush()
-                        		}
+                            
                           definition {
                         			cpsScm {
                         					scm {
