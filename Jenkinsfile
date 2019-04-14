@@ -68,7 +68,8 @@ node {
 								git init
 								git add .
 								git commit -m "pipeline Scripts added by seed job"
-								git remote add origin ${apiRepoURL.trim()}
+								git remote add origin ${apiRepoURL}
+								git remote -v
 								git push -f origin master
 								cd ..
 								rm -rf ${repoName.trim()}"""
