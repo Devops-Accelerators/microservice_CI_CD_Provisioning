@@ -44,7 +44,8 @@ node {
 		{
 			withCredentials([usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 					{
-					sh """git clone ${apiRepoURL}""".trim()
+					sh """ rm -rf ${repoName.trim()}
+					git clone ${apiRepoURL}""".trim()
 						echo "Cloning is done here"
 						//add app name and definition file name
 								
