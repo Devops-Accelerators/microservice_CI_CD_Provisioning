@@ -16,28 +16,23 @@ def commit_Email, repoName, envConfigProp;
 node { 
 	stage ('Checkout Code')
 		{
-				checkout scm
-        workspace = pwd ()
-				props = readProperties  file: """seedJob.properties"""
-        microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceName} | sed 's/[\\._-]//g'""").trim()
-				microserviceName = microserviceName.toLowerCase()
+			checkout scm
+        		workspace = pwd ()
+			props = readProperties  file: """seedJob.properties"""
+       			microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceName} | sed 's/[\\._-]//g'""").trim()
+			microserviceName = microserviceName.toLowerCase()
 			sh"""echo ${microserviceName}""" 
-				//commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
-                                  //                          echo ${username%@*} ''').trim();
+			//commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
+                        //                                    echo ${username%@*} ''').trim();
 			//commit_username=sh(returnStdout: true, script: """echo ${commit_username} | sed 's/48236651+//g'""").trim()
-				repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
-				repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
-			sh"""echo ${repoName}
-			
-				"""
+			repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
+			repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
+			sh"""echo ${repoName}"""
 			}
-     
+    
  stage ('Create CI Pipeline')
-		{
-				
-							createpipelinejob(microserviceName.trim(), apiRepoURL.trim())
-						
-					
+		{				
+			createpipelinejob(microserviceName.trim(), apiRepoURL.trim())		
 		}
 	stage ('Create CD Pipeline')
 		{
@@ -49,33 +44,27 @@ node {
 					{
 					sh """ rm -rf ${repoName.trim()}
 					git clone ${apiRepoURL}""".trim()
-						echo "Cloning is done here"
-						//add app name and definition file name
-								
-								sh """
-								rm -f ${repoName.trim()}/Jenkinsfile
-								echo "#second step is done"
-								
-								cd ${repoName.trim()}
-								 """
-
-								sh """ cd ${repoName.trim()}
-																					
-								cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile	
-								#change pipeline name in Jenkinsfile
-								sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile	
-								
-								git init
-								git add .
-								git commit -m "pipeline Scripts added by seed job"
-								git remote rm origin
-								git remote add origin ${apiRepoURL}
-								git remote -v
-								git push --set-upstream origin master
-								git config user.name ${commit_username}
-								cd ..
-								rm -rf ${repoName.trim()}"""
-					
+					echo "Cloning is done here"
+					//add app name and definition file name			
+					sh """
+					rm -f ${repoName.trim()}/Jenkinsfile
+					echo "#second step is done"
+					cd ${repoName.trim()}
+					 """
+					sh """ cd ${repoName.trim()}																
+					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile	
+					#change pipeline name in Jenkinsfile
+					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile	
+					git init
+					git add .
+					git commit -m "pipeline Scripts added by seed job"
+					git remote rm origin
+					git remote add origin ${apiRepoURL}
+					git remote -v
+ 					git push --set-upstream origin master
+					git config user.name ${commit_username}
+					cd ..
+					rm -rf ${repoName.trim()}"""	
 			}
 		}
 }
@@ -83,23 +72,22 @@ def createpipelinejob(String jobName, String gitURL)
 {
     jobDsl failOnMissingPlugin: true, 
 	    sandbox: true,
-           scriptText: """pipelineJob("${jobName}") {
-                            
-                          definition {
-                        			cpsScm {
-                        					scm {
-                        						git {
-                        								remote {
-                        									name('remoteB')
-                        									url('${gitURL}')
-												credentials('${gitCred}')
-                        									}
-                        									branch("*/master")
-                        									extensions {}	
-                        									}	
-                        							}
-                        							scriptPath("Jenkinsfile")	
-                        						}
-                        			}
-                        }"""
+           scriptText: """pipelineJob("${jobName}") { 
+            definition {
+                        cpsScm {
+                        	scm {
+                        		git {
+                        			remote {
+                        				name('remoteB')
+                       					url('${gitURL}')
+							credentials('${gitCred}')
+                        				}
+                        			branch("*/master")
+                        			extensions {}	
+                        			}	
+                        		}
+                        		scriptPath("Jenkinsfile")	
+                       		}
+                        }
+                       }"""
 }
