@@ -71,7 +71,7 @@ node {
 								git remote rm origin
 								git remote add origin ${apiRepoURL}
 								git remote -v
-								git push -f origin master
+								git push --set-upstream origin master
 								cd ..
 								rm -rf ${repoName.trim()}"""
 					
