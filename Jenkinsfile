@@ -24,6 +24,7 @@ node {
 			sh"""echo ${microserviceName}""" 
 				
 				repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
+				repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
 			sh"""echo ${repoName}
 				"""
 			}
