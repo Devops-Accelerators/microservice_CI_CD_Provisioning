@@ -69,7 +69,7 @@ node {
 								git add .
 								git commit -m "pipeline Scripts added by seed job"
 								git remote rm origin
-								git remote add origin ${apiRepoURL}
+								git remote add origin git@github.com:Devops-Accelerators/DSL_Job.git
 								git remote -v
 								git push --set-upstream origin master
 								cd ..
