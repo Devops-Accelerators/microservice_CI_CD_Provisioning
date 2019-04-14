@@ -24,8 +24,8 @@ node {
 			sh"""echo ${microserviceName}""" 
 				
 				repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
-			sh"""echo ${commit_username}
-				echo ${commit_Email}"""
+			sh"""echo ${repoName}
+				"""
 			}
      
  stage ('Create CI Pipeline')
