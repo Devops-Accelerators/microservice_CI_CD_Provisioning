@@ -34,7 +34,7 @@ node {
 			createpipelinejob(microserviceName.trim(), apiRepoURL.trim())		
 		}
 	
-  /*stage ('Add Repo Webhook')
+  stage ('Add Repo Webhook')
 		{
 			withCredentials([string(credentialsId: 'githubtoken', variable: 'githubCredentials'),
 			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
@@ -43,7 +43,7 @@ node {
 			    createGithubWebhook(repoName.trim(), props['jenkins.server'], """${githubAPI}""", """${githubOrg}""", githubCredentials )
 					
 			}
-		}*/
+		}
 
 	
 
