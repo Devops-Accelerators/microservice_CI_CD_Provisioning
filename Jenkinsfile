@@ -46,7 +46,9 @@ node {
 					sh """
 					rm -f ${repoName.trim()}/Jenkinsfile
 					echo "#second step is done"
+					ls -al
 					cd ${repoName.trim()}
+					
 					 """
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile	
