@@ -46,17 +46,6 @@ node {
 					sh """
 					rm -f ${repoName}/Jenkinsfile
 					echo "#second step is done"
-					
-					cd ${repoName.trim()}
-					git init
-					git add .
-					git pull
-					git commit -m "deleting jenkins"
-					git remote rm origin
-					git remote add origin ${apiRepoURL}
-					git remote -v
-					git push -f origin master 
-					
 					cd ${repoName.trim()}
 					ls -al
 					 """
