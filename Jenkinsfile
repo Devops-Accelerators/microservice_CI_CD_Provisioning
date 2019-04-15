@@ -60,7 +60,7 @@ node {
 					git init
 					git add .
 					git pull
-					git commit -m "pipeline Scripts added by seed job"
+					git commit -m "pipeline Script added by seed job"
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
