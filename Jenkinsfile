@@ -61,7 +61,7 @@ node {
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
- 					git push -f origin master -u ${commit_username} -p ${gitPassword}
+ 					
 					git push -f origin master https://${commit_username}:${gitPassword}@github.com/Devops-Accelerators/DSL_Job.git
 					cd ..
 					rm -rf ${repoName.trim()}"""	
