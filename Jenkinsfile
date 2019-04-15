@@ -46,6 +46,8 @@ node {
 					sh """
 					rm -f ${repoName}/Jenkinsfile
 					echo "#second step is done"
+					git add . 
+					git commit -m "deleting"
 					cd ${repoName.trim()}
 					ls -al
 					 """
