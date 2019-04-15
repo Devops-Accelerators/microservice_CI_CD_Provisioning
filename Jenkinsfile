@@ -71,7 +71,7 @@ node {
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
 					echo "creating helm chart"
 					helm create ${microserviceName.trim()}
-					cp -rf ${microserviceName.trim()} ./${microserviceName.trim()}
+					cp -rf ${microserviceName.trim()} helmchart
 					echo "remove helm chart"
 					rm -rf ${microserviceName.trim()}
 					ls -al
