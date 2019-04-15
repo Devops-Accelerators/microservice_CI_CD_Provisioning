@@ -37,6 +37,27 @@ node {
 		{
 				
 		}
+	
+	stage ('Add Repo Webhook')
+		{
+			withCredentials([string(credentialsId: 'githubtoken', variable: 'githubCredentials'),
+			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
+			{
+				try 
+				{
+					createGithubWebhook(repoName.trim(), props['jenkins.server'], """${githubAPI}""", """${githubOrg}""", githubCredentials )
+				}
+				catch (e) 
+				{
+					currentBuild.result='FAILURE'
+					notifyBuild(currentBuild.result, "At Stage Add Repo Webhook", commit_Email, "")
+					deletebuildpipeline(microserviceName.trim(), """${jenkinsAdminCredentials}""", props['jenkins.server'].trim(), """${ucdCredentials}""", """${ucdServer}""".trim())
+					echo """${e.getMessage()}"""
+					throw e
+				}
+			}
+		}
+
 
 	stage ('Add pipeline Scripts to Repository')
 		{
