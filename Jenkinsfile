@@ -51,9 +51,11 @@ node {
 					ls -al
 					 """
 					sh """ cd ${repoName.trim()}																
-					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile	
+					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
+					ls -al
 					#change pipeline name in Jenkinsfile
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
+					ls -al
 					git config --global user.name ${commit_username}
 					git init
 					git add .
