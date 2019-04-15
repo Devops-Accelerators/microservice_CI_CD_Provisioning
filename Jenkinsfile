@@ -69,6 +69,11 @@ node {
 					ls -al
 					#change pipeline name in Jenkinsfile
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
+					echo "creating helm chart"
+					helm create ${microserviceName.trim()}
+					cp -rf ${microserviceName.trim()} ${repoName.trim()}
+					echo "remove helm chart"
+					rm -rf ${microserviceName.trim()}
 					ls -al
 					git config --global user.name ${commit_username}
 					git init
