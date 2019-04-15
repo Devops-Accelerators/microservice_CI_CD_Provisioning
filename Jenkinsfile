@@ -36,7 +36,7 @@ node {
 	
   stage ('Add Repo Webhook')
 		{
-			withCredentials([String(credentialsId: 'githubtoken', variable: 'githubCredentials'),
+			withCredentials([string(credentialsId: 'githubtoken', variable: 'githubCredentials'),
 			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 			{
 				
