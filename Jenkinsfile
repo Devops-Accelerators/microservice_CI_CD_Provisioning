@@ -44,11 +44,11 @@ node {
 					echo "Cloning is done here"
 					//add app name and definition file name			
 					sh """
-					rm -f ${repoName.trim()}/Jenkinsfile
+					rm -f ${repoName}/Jenkinsfile
 					echo "#second step is done"
-					ls -al
-					cd ${repoName.trim()}
 					
+					cd ${repoName.trim()}
+					ls -al
 					 """
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile	
