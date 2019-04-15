@@ -57,8 +57,7 @@ node {
 					//add app name and definition file name			
 					sh """
 					rm -f ${repoName}/Jenkinsfile
-					rm -rf ${repoName}/${repoName}
-					rm -rf ${microserviceName.trim()}
+					rm -rf .${microserviceName.trim()}
 					echo "#second step is done"
 					git add . 
 					git commit -m "deleting"
@@ -72,7 +71,7 @@ node {
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
 					echo "creating helm chart"
 					helm create ${microserviceName.trim()}
-					cp -rf ${microserviceName.trim()} .${microserviceName.trim()}/
+					cp -rf ${microserviceName.trim()} ./${microserviceName.trim()}
 					echo "remove helm chart"
 					rm -rf ${microserviceName.trim()}
 					ls -al
