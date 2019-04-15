@@ -59,6 +59,7 @@ node {
 					git config --global user.name ${commit_username}
 					git init
 					git add .
+					git status
 					git pull
 					git commit -m "pipeline Script added by seed job"
 					git remote rm origin
