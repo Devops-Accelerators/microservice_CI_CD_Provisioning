@@ -33,23 +33,7 @@ node {
 		{				
 			createpipelinejob(microserviceName.trim(), apiRepoURL.trim())		
 		}
-	stage ('Create CD Pipeline')
-		{
-				
-		}
 	
-	stage ('Add Repo Webhook')
-		{
-			withCredentials([string(credentialsId: 'github', variable: 'githubCredentials'),
-			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
-			{
-				
-					createGithubWebhook(repoName.trim(), props['jenkins.server'], """${githubAPI}""", """${githubOrg}""", githubCredentials )
-				
-				
-			}
-		}
-
 
 	stage ('Add pipeline Scripts to Repository')
 		{
@@ -80,6 +64,18 @@ node {
 					rm -rf ${repoName.trim()}"""	
 			}
 		}
+	stage ('Add Repo Webhook')
+		{
+			withCredentials([string(credentialsId: 'github', variable: 'githubCredentials'),
+			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
+			{
+				
+					createGithubWebhook(repoName.trim(), props['jenkins.server'], """${githubAPI}""", """${githubOrg}""", githubCredentials )
+				
+				
+			}
+		}
+
 }
 def createpipelinejob(String jobName, String gitURL)
 {
