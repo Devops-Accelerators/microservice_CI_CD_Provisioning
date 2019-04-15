@@ -1,4 +1,4 @@
-properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'apiRepoURL'], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
+properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'apiRepoURL'],[password(defaultValue: '', description: '', name: 'gitPassword')], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
 
 def branchName;
 def newJobname;
@@ -22,6 +22,7 @@ node {
        			microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceName} | sed 's/[\\._-]//g'""").trim()
 			microserviceName = microserviceName.toLowerCase()
 			sh"""echo ${microserviceName}""" 
+			apiReporll=sh(returnStdout: true, script: """echo ${apiRepoURL} | sed 's/https:///@/g'""").trim()
 			commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
                                                             echo ${username%@*} ''').trim();
 			commit_username=sh(returnStdout: true, script: """echo ${commit_username} | sed 's/48236651+//g'""").trim()
@@ -60,7 +61,7 @@ node {
 					git add .
 					git commit -m \"pipeline Scripts added by seed job\"
 					git remote rm origin
-					git remote add origin ${apiRepoURL}
+					git remote add origin https://${commit_username}:${gitPassword}${apiRepourll}
 					git remote -v
  					git push --set-upstream origin master
 					
