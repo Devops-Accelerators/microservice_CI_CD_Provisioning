@@ -83,8 +83,7 @@ node {
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
- 					
-					git push -f origin master https://${commit_username}:${gitPassword}@${repoName}
+					git push -f origin master 
 					cd ..
 					rm -rf ${repoName.trim()}"""	
 			}
