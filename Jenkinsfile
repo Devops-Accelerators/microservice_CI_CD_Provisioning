@@ -60,7 +60,7 @@ node {
 					git add .
 					git commit -m \"pipeline Scripts added by seed job\"
 					git remote rm origin
-					git remote add origin https://${commit_username}:Minduser@123$@github.com/Devops-Accelerators/DSL_Job.git
+					git remote add origin https://Devops-Accelerators:Minduser@123$@github.com/Devops-Accelerators/DSL_Job.git
 					git remote -v
  					git push --set-upstream origin master
 					
