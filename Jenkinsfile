@@ -1,5 +1,4 @@
-properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'apiRepoURL'],credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
-
+properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'apiRepoURL'], password(defaultValue: '', description: '', name: 'gitPassword'), credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
 def branchName;
 def newJobname;
 def addedProjects;
@@ -60,9 +59,9 @@ node {
 					git add .
 					git commit -m \"pipeline Scripts added by seed job\"
 					git remote rm origin
-					git remote add origin https://Devops-Accelerators:Minduser@123$@github.com/Devops-Accelerators/DSL_Job.git
+					git remote add origin ${apiRepoURL}
 					git remote -v
- 					git push --set-upstream origin master
+ 					git push --set-upstream origin master -u ${commit_username} -p ${gitPassword}
 					
 					cd ..
 					rm -rf ${repoName.trim()}"""	
