@@ -106,12 +106,8 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					rm -rf ${repoName.trim()}"""	
 			}
 		}
-	stage ('Execute Newly Created Pipeline')
-	{
-		for(i=0; i<ucdjobList.size();i++)
-		{
-			build job: """${ucdjobList[i]}""", parameters: [string(name: 'stageExecution', value: """${apiStageExecution}""")], propagate: false
-		}
+	stage ('Execute seed job'){
+			build job: """${ucdjobList[0]}""", parameters: [string(name: 'container_port', value: """${port}"""), string(name: 'microserviceName', value: """${microserviceName}""")], propagate: false
 	}
 }
 def createpipelinejob(String jobName, String gitURL)
