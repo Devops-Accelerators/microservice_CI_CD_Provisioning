@@ -111,7 +111,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 			}
 		}
 	stage ('Execute seed job'){
-		build job: "${microserviceName}", parameters: [string(name: 'container_port', value: '8080'), string(name: 'microserviceName', value: 'sample')], propagate: false
+		build job: "${microserviceName}", propagate: false
 	}
 }
 def createpipelinejob(String jobName, String gitURL)
@@ -119,12 +119,6 @@ def createpipelinejob(String jobName, String gitURL)
     jobDsl failOnMissingPlugin: true, 
 	    sandbox: true,
            scriptText: """pipelineJob("${jobName}") {
-	   parameters {
-                         stringParam("container_port", "${port}", "")
-                      }
-	   parameters {
-			 stringParam("microserviceName", "${microserviceName}", "")
-                      }
 	   triggers {
                         githubPush()
                     }
