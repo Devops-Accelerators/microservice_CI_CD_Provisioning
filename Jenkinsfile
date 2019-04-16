@@ -130,7 +130,7 @@ def createpipelinejob(String jobName, String gitURL)
 
 def createGithubWebhook(String repoName, String jenkinsServer, String githubApiURL, String credentials)
 {
-	sh """curl -v -H "Content-Type:application/json" POST -d \'{ "name": "web", "active": true, "events": ["push"], "config": {"url": "http://ec2-52-49-178-161.eu-west-1.compute.amazonaws.com:8080/github-webhook/", "content_type": "json"}}\' \\
+	sh """curl -v -H "Content-Type:application/json" POST -d \'{ "name": "web", "active": true, "events": ["push"], "config": {"url": "${jenkinsServer}github-webhook/", "content_type": "json"}}\' \\
 	${githubApiURL}/${repoName}/settings/hooks?access_token=${credentials}"""
 }
 
