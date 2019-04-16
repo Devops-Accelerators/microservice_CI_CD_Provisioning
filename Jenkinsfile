@@ -85,6 +85,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 	
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
+					echo "$(date)" > date.txt
 					#change pipeline name in Jenkinsfile
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
 					echo "creating helm chart"
@@ -93,7 +94,6 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -rf helmchart/ ${microserviceName.trim()}
 					echo "remove helm chart"
 					rm -rf helmchart
-					echo "$(date)" > date.txt
 					git config --global user.name ${commit_username}
 					git init
 					git add .
