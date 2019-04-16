@@ -51,7 +51,7 @@ node {
     
     stage ('Deploy to Kubernetes')
     { 
-    	helmcreate ["${microserviceName}","${container_port}"]
+    	helmcreate ["${microserviceName}","${container_port}", "${dockerImage}"]
     }
 	
 }
