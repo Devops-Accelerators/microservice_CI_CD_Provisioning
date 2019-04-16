@@ -87,8 +87,8 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					sh """
 					cd ${repoName.trim()}
 					echo "timestamp"
-					cat >> date.txt <<EOF
-$(date)"""
+					echo """$(date)""" > date.txt
+					"""
 	
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
