@@ -2,7 +2,6 @@ def call (String microserviceName, String container_port, String dockerImage){
 
 
 	sh "echo ${microserviceName} ${container_port} ${dockerImage}"
-#mod helm chart
 sh """
 cat <<EOF > helmcreate.sh
 #!/bin/bash
