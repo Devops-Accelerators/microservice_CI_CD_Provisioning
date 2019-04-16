@@ -88,6 +88,9 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
 					#change pipeline name in Jenkinsfile
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
+					cp -f ../Dockerfile Dockerfile
+					cp -f ../context.xml context.xml
+					cp -f ../tomcat-users.xml tomcat-users.xml
 					echo "creating helm chart"
 					helm create ${microserviceName.trim()}
 					mv ${microserviceName.trim()} helmchart
