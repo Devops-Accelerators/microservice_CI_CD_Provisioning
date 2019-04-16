@@ -92,7 +92,8 @@ def createpipelinejob(String jobName, String gitURL)
 	    sandbox: true,
            scriptText: """pipelineJob("${jobName}") {
 	   parameters {
-                         stringParam("Port", "${port}", "")
+                         stringParam("container_port", "${port}", ""),
+			 stringParam("microserviceName", "${microserviceName}", "")
                       }
 	   triggers {
                         githubPush()
