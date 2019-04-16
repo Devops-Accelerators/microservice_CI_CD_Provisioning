@@ -62,11 +62,9 @@ node {
 					git add . 
 					git commit -m "deleting"
 					cd ${repoName.trim()}
-					ls -al
 					 """
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
-					rm -rf .sample
 					#change pipeline name in Jenkinsfile
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
 					echo "creating helm chart"
@@ -74,7 +72,6 @@ node {
 					cp -rf ${microserviceName.trim()} helmchart
 					echo "remove helm chart"
 					rm -rf ${microserviceName.trim()}
-					ls -al
 					git config --global user.name ${commit_username}
 					git init
 					git add .
