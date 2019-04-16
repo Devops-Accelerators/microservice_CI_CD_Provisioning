@@ -61,16 +61,28 @@ node {
 					rm -rf ${microserviceName.trim()}
 					rm -f ${repoName.trim()}/deploy.properties
 					rm -f ${repoName}/Dockerfile
+					rm -f ${repoName.trim()}/sonar-project.properties
 					echo "#second step is done"
 					git add . 
 					git commit -m "deleting"
 					cd ${repoName.trim()}
 					#Create deploy.properties file
 					cat >> deploy.properties << EOF
-					deploy.microservice=${microserviceName.trim()}
-					deploy.port=${port.trim()}
-					EOF """
-					
+deploy.microservice=${microserviceName.trim()}
+deploy.port=${port.trim()}"""
+					sh """
+					cd ${repoName.trim()}
+					#Create sonar.properties file
+					cat >> sonar-project.properties << EOF
+sonar.projectKey=java:${microserviceName.trim()}
+sonar.projectName=java:${microserviceName.trim()}
+sonar.projectVersion=1.0			
+sonar.language=java
+sonar.sources=src/main
+sonar.sourceEncoding=UTF-8
+sonar.java.binaries=target/classes
+sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
+	
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
 					#change pipeline name in Jenkinsfile
