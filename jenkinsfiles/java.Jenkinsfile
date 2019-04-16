@@ -30,12 +30,12 @@ node {
     
      stage ('Build and Unit Test Execution')
     {
-          testexec
+          //testexec
     }
     
      stage ('Code Coverage')
     { 
-        codecoveragexec
+        //codecoveragexec
     }
     
      stage ('Create Docker Image')
