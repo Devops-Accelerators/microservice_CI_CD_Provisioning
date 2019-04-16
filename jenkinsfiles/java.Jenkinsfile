@@ -12,6 +12,7 @@ def gitUrl;
 def repoName;
 def Cusername;
 def Cemail;
+def credentials = 'docker-credentials';
 
 node {
     stage('Checkout Code')
@@ -45,7 +46,7 @@ node {
     
      stage ('Push Image to Docker Registry')
     { 
-	     docker.withRegistry('https://registry.hub.docker.com','docker-credentials') {
+	     docker.withRegistry('https://registry.hub.docker.com',credentials) {
              dockerImage.push("${BUILD_NUMBER}")
              dockerImage.push("latest")
 	     }
