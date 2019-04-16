@@ -57,7 +57,8 @@ node {
 					//add app name and definition file name			
 					sh """
 					rm -f ${repoName}/Jenkinsfile
-					rm -rf .${microserviceName.trim()}
+					rm -rf .sample
+					rm -rf ${microserviceName.trim()}
 					echo "#second step is done"
 					git add . 
 					git commit -m "deleting"
