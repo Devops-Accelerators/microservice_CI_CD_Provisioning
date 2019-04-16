@@ -57,7 +57,6 @@ node {
 					//add app name and definition file name			
 					sh """
 					rm -f ${repoName}/Jenkinsfile
-					rm -rf .sample
 					rm -rf ${microserviceName.trim()}
 					echo "#second step is done"
 					git add . 
@@ -67,7 +66,7 @@ node {
 					 """
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
-					ls -al
+					rm -rf .sample
 					#change pipeline name in Jenkinsfile
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
 					echo "creating helm chart"
