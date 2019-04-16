@@ -19,7 +19,7 @@ node {
 	checkout scm
 	workspace = pwd() 
 	     sh "ls -lat"
-	   
+	props = readProperties  file: """deploy.properties"""   
     }
     
     stage ('Static Code Analysis')
