@@ -1,4 +1,4 @@
-def call (String microserviceName, String container_port, String dockerImage){
+def call (String microserviceName){
 
 
 	sh "echo ${microserviceName} ${container_port} ${dockerImage}"
