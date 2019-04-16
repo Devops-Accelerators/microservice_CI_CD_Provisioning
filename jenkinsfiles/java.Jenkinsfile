@@ -19,7 +19,7 @@ node {
 	checkout scm
 	workspace = pwd() 
 	     sh "ls -lat"
-	    echo "${Port}"
+	   
     }
     
     stage ('Static Code Analysis')
