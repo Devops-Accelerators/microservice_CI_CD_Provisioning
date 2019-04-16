@@ -1,4 +1,5 @@
-properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'apiRepoURL'], password(defaultValue: '', description: '', name: 'gitPassword'), credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
+properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'apiRepoURL'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
+
 def branchName;
 def newJobname;
 def addedProjects;
@@ -92,7 +93,9 @@ def createpipelinejob(String jobName, String gitURL)
 	    sandbox: true,
            scriptText: """pipelineJob("${jobName}") {
 	   parameters {
-                         stringParam("container_port", "${port}", ""),
+                         stringParam("container_port", "${port}", "")
+                      }
+	   parameters {
 			 stringParam("microserviceName", "${microserviceName}", "")
                       }
 	   triggers {
