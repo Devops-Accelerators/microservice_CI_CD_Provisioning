@@ -1,13 +1,12 @@
-def call (){
+def call (String ${microserviceName}, String ${container_port}){
 
-#create the helm chart
-sh "helm create ${microserviceName}"
+#mod helm chart
 sh """
-	cat <<EOF > helmcreate.sh
+cat <<EOF > helmcreate.sh
 #!/bin/bash
-sed -i "s/nginx/${image}/g" ${chart_name}/values.yaml
-sed -i "s/stable/${tag}/g" ${chart_name}/values.yaml
-sed -i "s/80/${container_port}/g" ${chart_name}/templates/deployment.yaml
+sed -i "s/nginx/${image}/g" ${microserviceName}/values.yaml
+sed -i "s/stable/latest/g" ${microserviceName}/values.yaml
+sed -i "s/80/${container_port}/g" ${microserviceName}/templates/deployment.yaml
 EOF"""
 	sh 'chmod +x helmcreate.sh'
 	sh './helmcreate.sh'
