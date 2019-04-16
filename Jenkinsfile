@@ -69,7 +69,7 @@ node {
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
 					echo "creating helm chart"
 					helm create ${microserviceName.trim()}
-					cp -rf ${microserviceName.trim()} helmchart
+					cp -rf ${microserviceName.trim()}/ helmchart
 					echo "remove helm chart"
 					rm -rf ${microserviceName.trim()}
 					git config --global user.name ${commit_username}
