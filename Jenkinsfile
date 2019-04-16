@@ -107,7 +107,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 			}
 		}
 	stage ('Execute seed job'){
-			build job: 'sample', parameters: [string(name: 'container_port', value: '8080'), string(name: 'microserviceName', value: 'sample')], quietPeriod: 1
+		build job: "${microserviceName}", parameters: [string(name: 'container_port', value: '8080'), string(name: 'microserviceName', value: 'sample')], quietPeriod: 1
 	}
 }
 def createpipelinejob(String jobName, String gitURL)
