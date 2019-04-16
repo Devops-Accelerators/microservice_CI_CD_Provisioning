@@ -94,7 +94,10 @@ def createpipelinejob(String jobName, String gitURL)
 {
     jobDsl failOnMissingPlugin: true, 
 	    sandbox: true,
-           scriptText: """pipelineJob("${jobName}") { 
+           scriptText: """pipelineJob("${jobName}") {
+	   triggers {
+                        githubPush()
+                    }
             definition {
                         cpsScm {
                         	scm {
