@@ -84,12 +84,6 @@ sonar.sourceEncoding=UTF-8
 sonar.java.binaries=target/classes
 sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 						
-					sh """
-					cd ${repoName.trim()}
-					echo "timestamp"
-					echo """$(date)""" > date.txt
-					"""
-	
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
 					#change pipeline name in Jenkinsfile
