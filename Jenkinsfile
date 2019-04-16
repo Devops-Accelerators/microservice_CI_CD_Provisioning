@@ -62,6 +62,7 @@ node {
 					rm -f ${repoName.trim()}/deploy.properties
 					rm -f ${repoName}/Dockerfile
 					rm -f ${repoName.trim()}/sonar-project.properties
+					rm -f ${repoName.trim()}/date.txt
 					echo "#second step is done"
 					git add . 
 					git commit -m "deleting"
@@ -82,10 +83,15 @@ sonar.sources=src/main
 sonar.sourceEncoding=UTF-8
 sonar.java.binaries=target/classes
 sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
+						
+					sh """
+					cd ${repoName.trim()}
+					echo "timestamp"
+					cat >> date.txt <<EOF
+$(date)"""
 	
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
-					echo "$(date)" > date.txt
 					#change pipeline name in Jenkinsfile
 					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
 					echo "creating helm chart"
