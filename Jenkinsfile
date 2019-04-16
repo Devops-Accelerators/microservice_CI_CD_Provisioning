@@ -95,6 +95,9 @@ def createpipelinejob(String jobName, String gitURL)
     jobDsl failOnMissingPlugin: true, 
 	    sandbox: true,
            scriptText: """pipelineJob("${jobName}") {
+	   parameters {
+                         stringParam("Port", "${port}", "")
+                      }
 	   triggers {
                         githubPush()
                     }
