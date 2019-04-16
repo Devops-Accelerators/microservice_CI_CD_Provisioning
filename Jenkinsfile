@@ -59,11 +59,18 @@ node {
 					sh """
 					rm -f ${repoName}/Jenkinsfile
 					rm -rf ${microserviceName.trim()}
+					rm -f ${repoName.trim()}/deploy.properties
+					rm -f ${repoName}/Dockerfile
 					echo "#second step is done"
 					git add . 
 					git commit -m "deleting"
 					cd ${repoName.trim()}
-					 """
+					#Create deploy.properties file
+					cat >> deploy.properties << EOF
+					deploy.microservice=${microserviceName.trim()}
+					deploy.port=${port.trim()}
+					EOF """
+					
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
 					#change pipeline name in Jenkinsfile
