@@ -93,12 +93,11 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -f ../tomcat-users.xml tomcat-users.xml
 					echo "creating helm chart"
 					helm create ${microserviceName.trim()}
-					mv ${microserviceName.trim()} helmchart
-					sed -i "s/80/${props['deploy.port']}/g" helmchart/templates/deployment.yaml
-					sed -i "s/stable/latest/g" helmchart/values.yaml
-					cp -rf helmchart .
+					sed -i "s/80/${props['deploy.port']}/g" ${microserviceName.trim()}/templates/deployment.yaml
+					sed -i "s/stable/latest/g" ${microserviceName.trim()}/values.yaml
+					cp -rf ${microserviceName.trim()}/ helmchart 
 					echo "remove helm chart"
-					rm -rf helmchart
+					rm -rf ${microserviceName.trim()}
 					git config --global user.name ${commit_username}
 					git init
 					git add .
