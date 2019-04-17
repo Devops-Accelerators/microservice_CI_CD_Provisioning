@@ -3,9 +3,9 @@ def call (String dockerImage){
 
 	
 	
-	 echo path="saumyaprashar\/${dockerImage}"
+	 echo path="saumyaprashar/${dockerImage}"
 sh """
-sed -i "s/nginx/${path} /g" helmchart/values.yaml
+sed 's/nginx/${path}/g' helmchart/values.yaml
 """
 	 
   }
