@@ -93,7 +93,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -f ../tomcat-users.xml tomcat-users.xml
 					echo "creating helm chart"
 					helm create ${microserviceName.trim()}
-					sed -i "s/80/${props['deploy.port']}/g" ${microserviceName.trim()}/templates/deployment.yaml
+					sed -i "s/80/${port.trim()}/g" ${microserviceName.trim()}/templates/deployment.yaml
 					sed -i "s/stable/latest/g" ${microserviceName.trim()}/values.yaml
 					cp -rf ${microserviceName.trim()}/ helmchart 
 					echo "remove helm chart"
