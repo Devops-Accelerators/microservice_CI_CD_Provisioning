@@ -1,12 +1,13 @@
-def call (List<String> param){
+def call (String dockerImage){
 
 
-	sh "echo ${param[0]} "
-/*sh """
-sed -i "s/nginx/${props['deploy.dockerImage']} /g" ${microserviceName}/values.yaml
-sed -i "s/stable/latest/g" ${microserviceName}/values.yaml
-sed -i "s/80/${props['deploy.container_port']} /g" ${microserviceName}/templates/deployment.yaml
-"""*/
+	
+	def prop = readProperties  file: """deploy.properties"""
+sh """
+sed -i "s/nginx/${dockerImage} /g" ${prop['deploy.microserviceName']}/values.yaml
+sed -i "s/stable/latest/g" ${prop['deploy.microserviceName']/values.yaml
+sed -i "s/80/${prop['deploy.container_port']} /g" ${prop['deploy.microserviceName']}/templates/deployment.yaml
+"""
 	//sh 'chmod +x helmcreate.sh'
 	//sh './helmcreate.sh'
 	//sh 'rm helmcreate.sh'
