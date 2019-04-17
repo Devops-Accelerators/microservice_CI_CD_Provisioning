@@ -56,7 +56,7 @@ node {
     stage ('Config helm')
     { 
     	sh "echo 'Almost there'"
-    	helmcreate "${dockerImage}"
+    	helmcreate "dockerImage"
     }
 	
 }
