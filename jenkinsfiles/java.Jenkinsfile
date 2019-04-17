@@ -42,6 +42,7 @@ node {
     { 
 	     echo 'creating an image'
              dockerImage = dockerexec "${props['deploy.microservice']}"
+	     echo "${dockerImage}"
     }
     
      stage ('Push Image to Docker Registry')
