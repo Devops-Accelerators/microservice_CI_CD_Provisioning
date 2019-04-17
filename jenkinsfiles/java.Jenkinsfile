@@ -12,7 +12,7 @@ def gitUrl;
 def repoName;
 def Cusername;
 def Cemail;
-def credentials = 'cred-docker';
+def credentials = 'docker-credentials';
 
 node {
     stage('Checkout Code')
@@ -42,7 +42,6 @@ node {
     { 
 	     echo 'creating an image'
              dockerImage = dockerexec "${props['deploy.microservice']}"
-	     echo "${dockerImage}"
     }
     
      stage ('Push Image to Docker Registry')
@@ -56,7 +55,7 @@ node {
     stage ('Config helm')
     { 
     	sh "echo 'Almost there'"
-    	helmcreate "dockerImage"
+    	//helmcreate ["${props['deploy.microservice']}", "${dockerImage}"]
     }
 	
 }
