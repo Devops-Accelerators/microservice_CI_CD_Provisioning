@@ -1,5 +1,4 @@
 def call() {
-       git 'https://github.com/AninditaMajumdar/DevopsRepository.git'
        def Sonarscanner = tool 'Sonarscanner';
     withSonarQubeEnv('Sonarqube') 
     {
