@@ -2,7 +2,7 @@ def call (String dockerImage){
 
 
 	
-	sh 'def prop = readProperties  file: """deploy.properties"""'
+	prop = readProperties  file: """deploy.properties"""
 sh """
 sed -i "s/nginx/${dockerImage} /g" prop['deploy.microservice']/values.yaml
 sed -i "s/stable/latest/g" prop['deploy.microservice']/values.yaml
