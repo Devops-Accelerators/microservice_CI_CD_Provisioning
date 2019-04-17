@@ -1,4 +1,4 @@
-def call(){
-  echo "clean test"
+def call(String s){
+  echo ${s}
 sh """mvn clean test"""
 }
