@@ -52,9 +52,10 @@ node {
 	     }
     }
     
-    stage ('Deploy to Kubernetes')
+    stage ('Config helm')
     { 
-    	helmcreate ["${props['deploy.microservice']}","${props['deploy.port']}", "${dockerImage}"]
+    	sh "echo 'Almost there'"
+    	//helmcreate ["${props['deploy.microservice']}","${props['deploy.port']}", "${dockerImage}"]
     }
 	
 }
