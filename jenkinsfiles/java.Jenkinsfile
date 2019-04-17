@@ -55,7 +55,7 @@ node {
     stage ('Config helm')
     { 
     	sh "echo 'Almost there'"
-    	//helmcreate ["${props['deploy.microservice']}","${props['deploy.port']}", "${dockerImage}"]
+    	helmcreate "${dockerImage}"
     }
 	
 }
