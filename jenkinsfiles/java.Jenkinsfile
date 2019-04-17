@@ -12,7 +12,7 @@ def gitUrl;
 def repoName;
 def Cusername;
 def Cemail;
-def credentials = 'docker-credentials';
+def credentials = 'docker-creden';
 
 node {
     stage('Checkout Code')
