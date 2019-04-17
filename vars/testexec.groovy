@@ -1,4 +1,4 @@
 def call(String s){
-  echo ${s}
+  sh"echo ${s}"
 sh """mvn clean test"""
 }
