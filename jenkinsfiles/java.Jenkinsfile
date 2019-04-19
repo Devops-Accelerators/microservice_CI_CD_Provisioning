@@ -37,6 +37,10 @@ node {
     { 
         codecoveragexec "code coverage execution.."
     }
+    stage ('create war')
+    {
+    	mavenbuildexec "mvn build"
+    }
     
      stage ('Create Docker Image')
     { 
