@@ -145,6 +145,6 @@ def createpipelinejob(String jobName, String gitURL)
 def createGithubWebhook(String repoName, String jenkinsServer, String githubApiURL, String credentials)
 {
 	sh """curl -v -H "Content-Type:application/json" POST -d \'{ "name": "web", "active": true, "events": ["push"], "config": {"url": "${jenkinsServer}github-webhook/", "content_type": "json"}}\' \\
-	${githubApiURL}/repos/Devops0-Accelerators/${repoName}/hooks?access_token=${credentials}"""
+	${githubApiURL}/repos/Devops-Accelerators/${repoName}/hooks?access_token=${credentials}"""
 }
 
