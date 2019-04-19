@@ -41,7 +41,7 @@ node {
 			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 			{
 				
-				createGithubWebhook(repoName.trim(), props['jenkins.server'], props['gitApi.server'],"Devops-Accelerators",githubCredentials)
+				createGithubWebhook(repoName.trim(), props['jenkins.server'], props['gitApi.server'],"""${commit_username}""",githubCredentials)
 					
 			}
 		}
