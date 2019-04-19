@@ -41,7 +41,7 @@ node {
 			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 			{
 				
-			    createGithubWebhook(repoName.trim(), props['jenkins.server'], """https://api.github.com""", githubCredentials )
+				createGithubWebhook(repoName.trim(), props['jenkins.server'], props['gitApi.server'],${commit-username},githubCredentials )
 					
 			}
 		}
@@ -142,9 +142,9 @@ def createpipelinejob(String jobName, String gitURL)
                        }"""
 }
 
-def createGithubWebhook(String repoName, String jenkinsServer, String githubApiURL, String credentials)
+def createGithubWebhook(String repoName, String jenkinsServer, String githubApiURL,String owner, String credentials)
 {
 	sh """curl -v -H "Content-Type:application/json" POST -d \'{ "name": "web", "active": true, "events": ["push"], "config": {"url": "${jenkinsServer}github-webhook/", "content_type": "json"}}\' \\
-	${githubApiURL}/repos/Devops-Accelerators/${repoName}/hooks?access_token=${credentials}"""
+	${githubApiURL}/repos/${owner}/${repoName}/hooks?access_token=${credentials}"""
 }
 
