@@ -69,6 +69,7 @@ node {
 					sh """
 					rm -f ${repoName}/Jenkinsfile
 					rm -rf ${microserviceName.trim()}
+					rm -rf helmchart
 					rm -f ${repoName.trim()}/deploy.properties
 					rm -f ${repoName}/Dockerfile
 					rm -f ${repoName.trim()}/sonar-project.properties
@@ -103,8 +104,6 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -f ../tomcat-users.xml tomcat-users.xml
 					echo "creating helm chart"
 					helm create ${microserviceName.trim()}
-					sed -i "s/80/${port.trim()}/g" ${microserviceName.trim()}/templates/deployment.yaml
-					sed -i "s/stable/latest/g" ${microserviceName.trim()}/values.yaml
 					cp -rf ${microserviceName.trim()}/ helmchart 
 					echo "remove helm chart"
 					rm -rf ${microserviceName.trim()}
