@@ -136,7 +136,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -rf ${microserviceName.trim()}/ helmchart 
 					echo "remove helm chart"
 					rm -rf ${microserviceName.trim()}
-					echo "$(date)" >> date.txt
+					echo '$(date)' >> date.txt
 					git config --global user.name ${commit_username}
 					git init
 					git add .
