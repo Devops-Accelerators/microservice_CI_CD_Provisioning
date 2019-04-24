@@ -102,17 +102,17 @@ node {
 					rm -f ${repoName}/Dockerfile
 					rm -f ${repoName.trim()}/sonar-project.properties
 					rm -f ${repoName.trim()}/date.txt
-					echo "#second step is done"
-					#git add . 
-					#git commit -m "deleting"
+					echo "second step is done"
+					git add . 
+					git commit -m "deleting"
 					cd ${repoName.trim()}
-					#Create deploy.properties file
+					Create deploy.properties file
 					cat >> deploy.properties << EOF
 deploy.microservice=${microserviceName.trim()}
 deploy.port=${port.trim()}"""
 					sh """
 					cd ${repoName.trim()}
-					#Create sonar.properties file
+					Create sonar.properties file
 					cat >> sonar-project.properties << EOF
 sonar.projectKey=java:${microserviceName.trim()}
 sonar.projectName=java:${microserviceName.trim()}
@@ -139,7 +139,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					git config --global user.name ${commit_username}
 					git init
 					git add .
-					#git pull
+					git pull
 					git commit -m "pipeline Script added by seed job"
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
