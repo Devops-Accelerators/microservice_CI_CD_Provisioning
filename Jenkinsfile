@@ -14,6 +14,7 @@ def commit_Email, repoName, envConfigProp;
 node { 
 	stage ('Checkout Code')
 		{
+			try{
 			checkout scm
         		workspace = pwd ()
 			props = readProperties  file: """seedJob.properties"""
@@ -27,8 +28,15 @@ node {
                                                             echo $Email''').trim();
 			repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
 			repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
-			sh"""echo ${repoName}"""
+			sh"""echo ${repoName}""
 			}
+			catch (error) {
+				currentBuild.result='FAILURE'
+				notifyBuild(currentBuild.result, "At Stage Checkout Code", commit_Email, "")
+				echo """${error.getMessage()}"""
+				throw error
+			}
+		}
     
  stage ('Create CI Pipeline')
 		{				
@@ -125,6 +133,20 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 		build job: "${microserviceName}", propagate: false
 	}
 }
+
+def notifyBuild(String buildStatus, String buildFailedAt, String commit_Email, String bodyDetails) 
+{
+	buildStatus = buildStatus ?: 'SUCCESS'
+	def details = """Please find attahcment for log and Check console output at ${BUILD_URL}\n \n "${bodyDetails}"
+		\n"""
+	emailext attachLog: true,
+	notifyEveryUnstableBuild: true,
+	recipientProviders: [[$class: 'RequesterRecipientProvider']],
+	body: details, 
+	subject: """${buildStatus}: Job ${microserviceName} [${BUILD_NUMBER}] ${buildFailedAt}""", 
+	to: """enigmaticdevops@gmail.com,${commit_Email}"""
+}
+
 def createpipelinejob(String jobName, String gitURL)
 {
     jobDsl failOnMissingPlugin: true, 
