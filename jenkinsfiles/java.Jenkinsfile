@@ -60,7 +60,7 @@ node {
     { 
     	sh "echo 'Almost there'"
 	sh"""
-	sed -i 's/nginx/${props['deploy.microservice']/g' helmchart/values.yaml
+	sed -i 's/nginx/${props['deploy.microservice']}/g' helmchart/values.yaml
 	sed -i 's/stable/${BUILD_NUMBER}/g' helmchart/values.yaml
 	sed -i 's/80/${props['deploy.port']}/g' helmchart/templates/deployment.yaml
 	"""
