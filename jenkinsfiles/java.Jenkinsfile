@@ -59,6 +59,7 @@ node {
     stage ('Config helm')
     { 
     	sh "echo 'Almost there'"
+	sh "echo '${dockerImage}'"
 	sh"""
 	sed -i 's/nginx/${props['deploy.microservice']}/g' helmchart/values.yaml
 	sed -i 's/stable/${BUILD_NUMBER}/g' helmchart/values.yaml
