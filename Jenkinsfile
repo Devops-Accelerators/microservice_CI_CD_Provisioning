@@ -103,8 +103,8 @@ node {
 					rm -f ${repoName.trim()}/sonar-project.properties
 					rm -f ${repoName.trim()}/date.txt
 					echo "#second step is done"
-					git add . 
-					git commit -m "deleting"
+					#git add . 
+					#git commit -m "deleting"
 					cd ${repoName.trim()}
 					#Create deploy.properties file
 					cat >> deploy.properties << EOF
