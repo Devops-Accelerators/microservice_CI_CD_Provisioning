@@ -32,10 +32,11 @@ node {
 			sh"""echo ${repoName}"""
 			}
 			catch (error) {
-				currentBuild.result='FAILURE'
+				emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
+				/*currentBuild.result='FAILURE'
 				notifyBuild(currentBuild.result, "At Stage Checkout Code", commit_Email, "")
 				echo """${error.getMessage()}"""
-				throw error
+				throw error*/
 			}
 		}
     
@@ -137,7 +138,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 
 def notifyBuild(String buildStatus, String buildFailedAt, String commit_Email, String bodyDetails) 
 {
-	buildStatus = buildStatus ?: 'SUCCESS'
+	/*buildStatus = buildStatus ?: 'SUCCESS'
 	def details = """Please find attahcment for log and Check console output at ${BUILD_URL}\n \n "${bodyDetails}"
 		\n"""
 	emailext attachLog: true,
@@ -145,7 +146,7 @@ def notifyBuild(String buildStatus, String buildFailedAt, String commit_Email, S
 	recipientProviders: [[$class: 'RequesterRecipientProvider']],
 	body: details, 
 	subject: """${buildStatus}: Job ${microserviceName} [${BUILD_NUMBER}] ${buildFailedAt}""", 
-	to: """enigmaticdevops@gmail.com,${commit_Email}"""
+	to: """enigmaticdevops@gmail.com,${commit_Email}"""*/
 }
 
 def createpipelinejob(String jobName, String gitURL)
