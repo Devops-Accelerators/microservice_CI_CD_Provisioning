@@ -136,11 +136,12 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -rf ${microserviceName.trim()}/ helmchart 
 					echo "remove helm chart"
 					rm -rf ${microserviceName.trim()}
+					echo "$(date)" >> date.txt
 					git config --global user.name ${commit_username}
 					git init
 					git add .
 					#git pull
-					git commit -m "pipeline Script added by seed job $(date)"
+					git commit -m "pipeline Script added by seed job"
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
