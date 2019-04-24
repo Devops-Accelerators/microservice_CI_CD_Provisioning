@@ -55,7 +55,7 @@ node {
 	
   stage ('Add Repo Webhook')
 		{
-			try{
+			
 			withCredentials([string(credentialsId: 'githubtoken', variable: 'githubCredentials'),
 			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 			{
@@ -63,18 +63,7 @@ node {
 	
 				createGithubWebhook(repoName.trim(), props['jenkins.server'], props['gitApi.server'],"""${commit_username}""",githubCredentials)
 			       	}
-				catch (e) 
-				{
-					currentBuild.result='FAILURE'
-					notifyBuild(currentBuild.result, "At Stage Add Repo Webhook", commit_Email, "")
-					deletebuildpipeline(microserviceName.trim(), """${jenkinsAdminCredentials}""", props['jenkins.server'].trim(), """${ucdCredentials}""", """${ucdServer}""".trim())
-					echo """${e.getMessage()}"""
-					throw e
-				}
-
-			}
-			}
-			catch (error) {
+				catch (error) {
 				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
 				currentBuild.result='FAILURE'
 				notifyBuild(currentBuild.result, "At Stage Add Repo Webhook", commit_Email, "")
@@ -82,8 +71,6 @@ node {
 				throw error
 			}
 		}
-
-	
 
   stage ('Add pipeline Scripts to Repository')
 		{
