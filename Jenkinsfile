@@ -140,7 +140,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					git init
 					git add .
 					#git pull
-					git commit -m "pipeline Script added by seed job"
+					git commit -m "pipeline Script added by seed job $(date)"
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
