@@ -1,8 +1,6 @@
 properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'MicroserviceName'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'apiRepoURL'], [$class: 'GlobalVariableStringParameterDefinition', defaultValue: '', description: '', name: 'port'], credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: '', name: 'gitCred', required: false)])])
 
 def branchName;
-def newJobname;
-def addedProjects;
 def gitURL;
 def props;
 def jobsCreated="";
