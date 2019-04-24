@@ -28,7 +28,7 @@ node {
                                                             echo $Email''').trim();
 			repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
 			repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
-			sh"""echo ${repoName}""
+			sh"""echo ${repoName}"""
 			}
 			catch (error) {
 				currentBuild.result='FAILURE'
