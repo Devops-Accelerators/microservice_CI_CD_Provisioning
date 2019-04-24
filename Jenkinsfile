@@ -32,7 +32,7 @@ node {
 			sh"""echo ${repoName}"""
 			}
 			catch (error) {
-				emailext body: '$(error)', subject: 'failure', to: 'enigmaticdevops@gmail.com' 
+				emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
 				/*currentBuild.result='FAILURE'
 				notifyBuild(currentBuild.result, "At Stage Checkout Code", commit_Email, "")
 				echo """${error.getMessage()}"""
