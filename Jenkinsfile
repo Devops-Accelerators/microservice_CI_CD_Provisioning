@@ -17,7 +17,7 @@ node {
 			try{
 			checkout scm
         		workspace = pwd ()
-			commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
+			commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
                                                             echo ${username%@*} ''').trim();
 			commit_username=sh(returnStdout: true, script: """echo ${commit_username} | sed 's/48236651+//g'""").trim()
 			commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
