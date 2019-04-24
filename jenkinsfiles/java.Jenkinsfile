@@ -66,10 +66,10 @@ node {
 	sed -i 's/80/${props['deploy.port']}/g' helmchart/templates/deployment.yaml
 	"""
     }
-    stage ('deploy to cluster')
+    /*stage ('deploy to cluster')
     {
     	helmdeploy "${props['deploy.microservice']}"
-    }
+    }*/
 	
 }
 		
