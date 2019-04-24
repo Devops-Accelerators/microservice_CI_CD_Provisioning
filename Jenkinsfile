@@ -139,7 +139,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					git config --global user.name ${commit_username}
 					git init
 					git add .
-					git pull
+					#git pull
 					git commit -m "pipeline Script added by seed job"
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
