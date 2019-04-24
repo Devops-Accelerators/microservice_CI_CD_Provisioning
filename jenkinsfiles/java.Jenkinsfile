@@ -68,7 +68,7 @@ node {
     }
     stage ('deploy to cluster')
     {
-    	helmdeploy "deploying to cluster"
+    	helmdeploy "${props['deploy.microservice']}"
     }
 	
 }
