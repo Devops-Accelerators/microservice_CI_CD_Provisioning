@@ -17,15 +17,16 @@ node {
 			try{
 			checkout scm
         		workspace = pwd ()
-			props = readProperties  file: """seedJob.properties"""
-       			microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceNam} | sed 's/[\\._-]//g'""").trim()
-			microserviceName = microserviceName.toLowerCase()
-			sh"""echo ${microserviceName}""" 
 			commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%ae) 
                                                             echo ${username%@*} ''').trim();
 			commit_username=sh(returnStdout: true, script: """echo ${commit_username} | sed 's/48236651+//g'""").trim()
 			commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
                                                             echo $Email''').trim();
+			props = readProperties  file: """seedJob.properties"""
+       			microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceNam} | sed 's/[\\._-]//g'""").trim()
+			microserviceName = microserviceName.toLowerCase()
+			sh"""echo ${microserviceName}""" 
+			
 			repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
 			repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
 			sh"""echo ${repoName}"""
