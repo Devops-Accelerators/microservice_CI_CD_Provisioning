@@ -69,6 +69,7 @@ node {
 				notifyBuild(currentBuild.result, "At Stage Add Repo Webhook", commit_Email, "")
 				echo """${error.getMessage()}"""
 				throw error
+				}
 			}
 		}
 
