@@ -23,7 +23,7 @@ node {
 			commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
                                                             echo $Email''').trim();
 			props = readProperties  file: """seedJob.properties"""
-       			microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceNam} | sed 's/[\\._-]//g'""").trim()
+       			microserviceName = sh(returnStdout: true, script: """echo ${MicroserviceName} | sed 's/[\\._-]//g'""").trim()
 			microserviceName = microserviceName.toLowerCase()
 			sh"""echo ${microserviceName}""" 
 			
@@ -41,12 +41,21 @@ node {
 		}
     
  stage ('Create CI Pipeline')
-		{				
-			createpipelinejob(microserviceName.trim(), apiRepoURL.trim())		
+	{	try{			
+			createpipelinejob(microserviceName.trim(), apiRepoURL.trim())
+			}
+	 		catch (error) {
+				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
+				currentBuild.result='FAILURE'
+				notifyBuild(currentBuild.result, "At Stage Create CI Pipeline", commit_Email, "")
+				echo """${error.getMessage()}"""
+				throw error
+			}
 		}
 	
   stage ('Add Repo Webhook')
 		{
+			try{
 			withCredentials([string(credentialsId: 'githubtoken', variable: 'githubCredentials'),
 			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 			{
@@ -64,12 +73,21 @@ node {
 				}
 
 			}
+			}
+			catch (error) {
+				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
+				currentBuild.result='FAILURE'
+				notifyBuild(currentBuild.result, "At Stage Add Repo Webhook", commit_Email, "")
+				echo """${error.getMessage()}"""
+				throw error
+			}
 		}
 
 	
 
   stage ('Add pipeline Scripts to Repository')
 		{
+			try{
 			withCredentials([usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 					{
 					sh """ rm -rf ${repoName.trim()}
@@ -130,10 +148,28 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cd ..
 					rm -rf ${repoName.trim()}"""	
 			}
+			}
+			catch (error) {
+				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
+				currentBuild.result='FAILURE'
+				notifyBuild(currentBuild.result, "At Stage Add pipeline Scripts to Repository", commit_Email, "")
+				echo """${error.getMessage()}"""
+				throw error
+			}
 		}
 	stage ('Execute seed job'){
+		try{
 		build job: "${microserviceName}", propagate: false
+		}
+		catch (error) {
+				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
+				currentBuild.result='FAILURE'
+				notifyBuild(currentBuild.result, "At Stage Execute seed job", commit_Email, "")
+				echo """${error.getMessage()}"""
+				throw error
+			}
 	}
+	notifyBuild(currentBuild.result, "", commit_Email, """Version tag created with name branch \n Build successful. """)
 }
 
 def notifyBuild(String buildStatus, String buildFailedAt, String commit_Email, String bodyDetails) 
@@ -181,4 +217,3 @@ def createGithubWebhook(String repoName, String jenkinsServer, String githubApiU
 	sh """curl -v -H "Content-Type:application/json" POST -d \'{ "name": "web", "active": true, "events": ["push"], "config": {"url": "${jenkinsServer}github-webhook/", "content_type": "json"}}\' \\
 	${githubApiURL}/repos/${owner}/${repoName}/hooks?access_token=${credentials}"""
 }
-
