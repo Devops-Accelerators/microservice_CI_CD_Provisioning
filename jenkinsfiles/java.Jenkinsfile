@@ -2,16 +2,12 @@
 
 def workspace;
 def branch;
-def appDeployProcess;
 def dockerImage;
-def configserveruri='';
 def props='';
 def microserviceName;
 def port;
 def gitUrl;
 def repoName;
-def Cusername;
-def Cemail;
 def credentials = 'docker-credentials';
 
 node {
@@ -25,7 +21,7 @@ node {
     
     stage ('Static Code Analysis')
     { 
-	    sonarexec "sonar analysis.."
+	    sonarexec "${props['deploy.sonarqubeserver']}"
     }
     
      stage ('Build and Unit Test Execution')
@@ -35,7 +31,7 @@ node {
     
      stage ('Code Coverage')
     { 
-        codecoveragexec "code coverage execution.."
+        codecoveragexec "${props['deploy.sonarqubeserver']}"
     }
     stage ('create war')
     {
