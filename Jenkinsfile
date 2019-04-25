@@ -83,16 +83,15 @@ node {
 					rm -f ${repoName.trim()}/sonar-project.properties
 					rm -f ${repoName.trim()}/date.txt
 					echo "second step is done"
-					#git add . 
-					#git commit -m "deleting"
+					
 					cd ${repoName.trim()}
-					Create deploy.properties file
+					#Create deploy.properties file
 					cat >> deploy.properties << EOF
 deploy.microservice=${microserviceName.trim()}
 deploy.port=${port.trim()}"""
 					sh """
 					cd ${repoName.trim()}
-					Create sonar.properties file
+					#Create sonar.properties file
 					cat >> sonar-project.properties << EOF
 sonar.projectKey=${microserviceName.trim()}
 sonar.projectName=${microserviceName.trim()}
