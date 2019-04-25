@@ -41,14 +41,14 @@ node {
      stage ('Create Docker Image')
     { 
 	     echo 'creating an image'
-             dockerImage = dockerexec "${props['deploy.microservice']}"
+	     def docImg="{props['deploy.dockerhub']}/${props['deploy.microservice']}"
+             dockerImage = dockerexec "${docImg}"
     }
     
      stage ('Push Image to Docker Registry')
     { 
 	     docker.withRegistry('https://registry.hub.docker.com',credentials) {
              dockerImage.push("${BUILD_NUMBER}")
-             dockerImage.push("latest")
 	     }
     }
     
