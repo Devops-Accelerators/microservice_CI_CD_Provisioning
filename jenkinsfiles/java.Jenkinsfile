@@ -47,7 +47,7 @@ node {
     
      stage ('Push Image to Docker Registry')
     { 
-	     docker.withRegistry('https://registry.hub.docker.com',credentials) {
+	     docker.withRegistry('https://registry.hub.docker.com',docker-credentials) {
              dockerImage.push("${BUILD_NUMBER}")
 	     }
     }
