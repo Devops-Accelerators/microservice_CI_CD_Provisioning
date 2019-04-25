@@ -3,14 +3,9 @@ properties([parameters([[$class: 'GlobalVariableStringParameterDefinition', defa
 def branchName;
 def gitURL;
 def props;
-def jobsCreated="";
-def status;
-def ucdjobList;
 def microserviceName;
-def newjob=true;
-def createJIRA=false;
 def commit_username;
-def commit_Email, repoName, envConfigProp;
+def commit_Email, repoName;
 node { 
 	stage ('Checkout Code')
 		{
@@ -32,7 +27,6 @@ node {
 			sh"""echo ${repoName}"""
 			}
 			catch (error) {
-				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
 				currentBuild.result='FAILURE'
 				notifyBuild(currentBuild.result, "At Stage Checkout Code", commit_Email, "")
 				echo """${error.getMessage()}"""
@@ -45,7 +39,6 @@ node {
 			createpipelinejob(microserviceName.trim(), apiRepoURL.trim())
 			}
 	 		catch (error) {
-				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
 				currentBuild.result='FAILURE'
 				notifyBuild(currentBuild.result, "At Stage Create CI Pipeline", commit_Email, "")
 				echo """${error.getMessage()}"""
@@ -64,7 +57,6 @@ node {
 				createGithubWebhook(repoName.trim(), props['jenkins.server'], props['gitApi.server'],"""${commit_username}""",githubCredentials)
 			       	}
 				catch (error) {
-				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
 				currentBuild.result='FAILURE'
 				notifyBuild(currentBuild.result, "At Stage Add Repo Webhook", commit_Email, "")
 				echo """${error.getMessage()}"""
@@ -102,8 +94,8 @@ deploy.port=${port.trim()}"""
 					cd ${repoName.trim()}
 					Create sonar.properties file
 					cat >> sonar-project.properties << EOF
-sonar.projectKey=java:${microserviceName.trim()}
-sonar.projectName=java:${microserviceName.trim()}
+sonar.projectKey=${microserviceName.trim()}
+sonar.projectName=${microserviceName.trim()}
 sonar.projectVersion=1.0			
 sonar.language=java
 sonar.sources=src/main
@@ -125,6 +117,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					echo "remove helm chart"
 					rm -rf ${microserviceName.trim()}
 					git config --global user.name ${commit_username}
+					git config --global user.email ${commit_Email}
 					git init
 					git add .
 					git pull
@@ -138,7 +131,6 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 			}
 			}
 			catch (error) {
-				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
 				currentBuild.result='FAILURE'
 				notifyBuild(currentBuild.result, "At Stage Add pipeline Scripts to Repository", commit_Email, "")
 				echo """${error.getMessage()}"""
@@ -150,7 +142,6 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 		build job: "${microserviceName}", propagate: false
 		}
 		catch (error) {
-				//emailext body: '$(error)', subject: 'failure', to: 'sasdevops@gmail.com' 
 				currentBuild.result='FAILURE'
 				notifyBuild(currentBuild.result, "At Stage Execute seed job", commit_Email, "")
 				echo """${error.getMessage()}"""
@@ -170,7 +161,7 @@ def notifyBuild(String buildStatus, String buildFailedAt, String commit_Email, S
 	recipientProviders: [[$class: 'RequesterRecipientProvider']],
 	body: details, 
 	subject: """${buildStatus}: Job ${microserviceName} [${BUILD_NUMBER}] ${buildFailedAt}""", 
-	to: """enigmaticdevops@gmail.com,${commit_Email}"""
+	to: """${commit_Email}"""
 }
 
 def createpipelinejob(String jobName, String gitURL)
