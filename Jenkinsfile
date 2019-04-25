@@ -90,7 +90,7 @@ node {
 deploy.microservice=${microserviceName.trim()}
 deploy.port=${port.trim()}
 deploy.sonarqubeserver=${props['sonar.server']}
-depoly.dockerhub=${props['dockerhub.name']}"""
+deploy.dockerhub=${props['dockerhub.name']}"""
 					sh """
 					cd ${repoName.trim()}
 					#Create sonar.properties file
