@@ -6,6 +6,7 @@ def props;
 def microserviceName;
 def commit_username;
 def commit_Email, repoName;
+def gituserName;
 node { 
 	stage ('Checkout Code')
 		{
