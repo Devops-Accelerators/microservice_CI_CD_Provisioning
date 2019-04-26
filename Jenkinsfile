@@ -26,8 +26,9 @@ node {
 			repoName=sh(returnStdout: true, script: """echo \$(basename ${apiRepoURL.trim()})""").trim();
 			repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
 			sh"""echo ${repoName}"""
-			gituserName=sh(returnStdout: true, script: """echo \$(${apiRepoURL.trim()}%/*)""").trim();
+			gituserName=sh(returnStdout: true, script: """echo ${apiRepoURL} | sed 's/https:\/\/github.com\//g'""").trim()
 			
+			sh"""echo ${gituserName}"""
 			}
 			catch (error) {
 				currentBuild.result='FAILURE'
