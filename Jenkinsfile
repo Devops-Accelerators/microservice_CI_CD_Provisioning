@@ -27,7 +27,7 @@ node {
 			repoName=sh(returnStdout: true, script: """echo ${repoName} | sed 's/.git//g'""").trim()
 			sh"""echo ${repoName}"""
 			gituserName=sh(returnStdout: true, script: """echo \$(dirname ${apiRepoURL.trim()})""").trim();
-			
+			gituserName=sh(returnStdout: true, script: """echo ${gituserName//+(*\/|.*)}""").trim()
 			sh"""echo ${gituserName}"""
 			}
 			catch (error) {
