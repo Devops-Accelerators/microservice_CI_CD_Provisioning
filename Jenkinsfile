@@ -53,12 +53,12 @@ node {
   stage ('Add Repo Webhook')
 		{
 			
-			withCredentials([string(credentialsId: 'githubtoken', variable: 'githubCredentials'),
+			withCredentials([string(credentialsId: 'sasgithubtoken', variable: 'githubCredentials'),
 			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 			{
 				try {
 	
-				createGithubWebhook(repoName.trim(), props['jenkins.server'], props['gitApi.server'],"""${commit_username}""",githubCredentials)
+				createGithubWebhook(repoName.trim(), props['jenkins.server'], props['gitApi.server'],"""${gituserName}""",githubCredentials)
 			       	}
 				catch (error) {
 				currentBuild.result='FAILURE'
