@@ -54,14 +54,7 @@ node {
     
     stage ('Config helm')
     { 
-    
-    	/*sh "echo 'Almost there'"
-	sh "echo '${dockerImage}'"
-	sh"""
-	sed -i 's/nginx/${props['deploy.microservice']}/g' helmchart/values.yaml
-	sed -i 's/stable/${BUILD_NUMBER}/g' helmchart/values.yaml
-	sed -i 's/80/${props['deploy.port']}/g' helmchart/templates/deployment.yaml
-	"""*/
+    	
 	def filename = 'helmchart/values.yaml'
 	def data = readYaml file: filename
 	
