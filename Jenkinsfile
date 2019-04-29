@@ -76,7 +76,8 @@ node {
 					{
 					//rm -rf ${repoName.trim()}
 					
-					sh """ 
+					sh """rm -rf ${repoName.trim()} 
+					rm -rf ${microserviceName.trim()}
 					git clone ${apiRepoURL}""".trim()
 					echo "Cloning is done here"
 					//add app name and definition file name			
