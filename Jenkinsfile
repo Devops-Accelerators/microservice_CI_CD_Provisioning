@@ -133,7 +133,8 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
-					git push -f origin master 
+					#git push -f origin master 
+					 git push https://${gituserName}:${sasgithub}@${gituserName}/${repoName.trim()}.git --all
 					cd ..
 					rm -rf ${repoName.trim()}"""	
 			}
