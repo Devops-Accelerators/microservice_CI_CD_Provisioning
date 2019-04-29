@@ -75,13 +75,14 @@ node {
 			withCredentials([usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 					{
 					//rm -rf ${repoName.trim()}
+					
 					sh """ 
 					git clone ${apiRepoURL}""".trim()
 					echo "Cloning is done here"
 					//add app name and definition file name			
 					sh """
 					rm -f ${repoName}/Jenkinsfile
-					rm -rf ${microserviceName.trim()}
+					#rm -rf ${microserviceName.trim()}
 					rm -rf helmchart
 					rm -f ${repoName.trim()}/deploy.properties
 					rm -f ${repoName}/Dockerfile
