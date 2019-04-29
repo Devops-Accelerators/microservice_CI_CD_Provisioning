@@ -121,7 +121,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -f ../tomcat-users.xml tomcat-users.xml
 					
 					echo "copy helm basic template"
-					cp -f ../java-micro helmchart
+					cp -rf ../java-micro helmchart
 					
 					#echo "creating helm chart"
 					#helm create ${microserviceName.trim()}
