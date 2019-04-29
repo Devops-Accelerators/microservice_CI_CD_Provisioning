@@ -42,7 +42,7 @@ node {
      stage ('Create Docker Image')
     { 
 	     echo 'creating an image'
-	     def docImg="${props['deploy.dockerhub']}/${props['deploy.microservice']}"
+	     docImg="${props['deploy.dockerhub']}/${props['deploy.microservice']}"
              dockerImage = dockerexec "${docImg}"
     }
     
