@@ -55,7 +55,6 @@ node {
     stage ('Config helm')
     { 
     
-    	sh "mv helmchart/ ${props['deploy.microservice']} "
     	/*sh "echo 'Almost there'"
 	sh "echo '${dockerImage}'"
 	sh"""
@@ -69,16 +68,20 @@ node {
 	data.image.repository = "${dockerImage}"
 	data.image.tag = "$BUILD_NUMBER"
 	data.service.port = "${props['deploy.port']}"
+	
 	sh "rm -f helmchart/values.yaml"
 	writeYaml file: filename, data: data
 	
-	def templateDeployment = 'helmchart/templates/deployment.yaml'
-	def deployData = readYaml file: templateDeployment
 	
-	deployData.spec.containers.ports.containerPort = "{{  .Values.service.port }}"
 	
-	sh "rm -f helmchart/templates/deployment.yaml"
-	writeYaml file: templateDeployment, data: deployData
+	
+	def chart = 'helmchart/Chart.yaml'
+	def chartData = readYaml file: chart
+	
+	data.name = "${props['deploy.microservice']}"
+	
+	sh"rm -f helmchart/Chart.yaml"
+	writeYaml file: chart, data: chartData
 	
 	
     }
