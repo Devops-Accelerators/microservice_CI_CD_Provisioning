@@ -58,7 +58,7 @@ node {
 	def filename = 'helmchart/values.yaml'
 	def data = readYaml file: filename
 	
-	data.image.repository = "${dockerImage}"
+	data.image.repository = "${docImg}"
 	data.image.tag = "$BUILD_NUMBER"
 	data.service.port = "${props['deploy.port']}"
 	
