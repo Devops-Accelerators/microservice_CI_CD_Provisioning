@@ -114,8 +114,6 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
 					rm -rf helmchart
-					#change pipeline name in Jenkinsfile
-					sed -i 's/pipelineName/${microserviceName.trim()}/g'  Jenkinsfile
 					cp -f ../Dockerfile Dockerfile
 					cp -f ../context.xml context.xml
 					cp -f ../tomcat-users.xml tomcat-users.xml
@@ -123,11 +121,6 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					echo "copy helm basic template"
 					cp -rf ../java-micro helmchart
 					
-					#echo "creating helm chart"
-					#helm create ${microserviceName.trim()}
-					#cp -rf ${microserviceName.trim()}/ helmchart 
-					#echo "remove helm chart"
-					#rm -rf ${microserviceName.trim()}
 					git config --global user.name ${commit_username}
 					git config --global user.email ${commit_Email}
 					git init
@@ -137,8 +130,8 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
-					#git push -f origin master 
-					 git push -f --all
+				#	git push -f origin master 
+					git push -f --all
 					cd ..
 					rm -rf ${repoName.trim()}"""	
 			}
