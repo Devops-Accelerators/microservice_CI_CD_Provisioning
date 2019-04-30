@@ -1,4 +1,4 @@
-def call(String microserviceName) {
+def call() {
 
     sh """
 cat <<EOF > rbac-config.yaml
@@ -28,7 +28,7 @@ helm init --service-account tiller --upgrade
 
 rm rbac-config.yaml
 
-helm install -n "${miroserviceName}" helmchart --dry-run --debug
+helm install helmchart --dry-run --debug
 """
     
 
