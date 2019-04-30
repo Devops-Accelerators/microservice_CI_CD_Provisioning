@@ -1,5 +1,6 @@
-def call() {
+def call(String s) {
 
-    ls -al
+    sh "echo $s"
+    sh "ls -al"
     sh "helm install helmchart"
 }
