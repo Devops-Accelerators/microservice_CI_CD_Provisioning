@@ -1,8 +1,5 @@
 def call() {
 
-    
-    sh """ 
     ls -al
-    helm install helmchart 
-    """
+    sh "helm install helmchart"
 }
