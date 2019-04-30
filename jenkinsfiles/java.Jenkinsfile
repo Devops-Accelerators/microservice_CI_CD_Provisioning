@@ -72,7 +72,7 @@ node {
 	def chart = 'helmchart/Chart.yaml'
 	def chartData = readYaml file: chart
 	
-	data.name = "${props['deploy.microservice']}"
+	chartData.name = "${props['deploy.microservice']}"
 	
 	sh"rm -f helmchart/Chart.yaml"
 	writeYaml file: chart, data: chartData
