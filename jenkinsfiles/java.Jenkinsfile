@@ -66,18 +66,6 @@ node {
 	sh "rm -f helmchart/values.yaml"
 	writeYaml file: filename, data: data
 	
-	
-	
-	
-	def chart = 'helmchart/Chart.yaml'
-	def chartData = readYaml file: chart
-	
-	chartData.name = "${props['deploy.microservice']}"
-	
-	sh"rm -f helmchart/Chart.yaml"
-	writeYaml file: chart, data: chartData
-	
-	
     }
     /*stage ('deploy to cluster')
     {
