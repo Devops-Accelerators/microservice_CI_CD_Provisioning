@@ -1,4 +1,4 @@
-def call (String microserviceName){
+def call(String microserviceName) {
 
     sh """
 cat <<EOF > rbac-config.yaml
