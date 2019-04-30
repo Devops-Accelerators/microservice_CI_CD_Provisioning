@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: stable
+  repository: #image name goes here
+  tag: #image version
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -14,7 +14,7 @@ fullnameOverride: ""
 
 service:
   type: ClusterIP
-  port: 80
+  port: #the application port goes here 
 
 ingress:
   enabled: false
