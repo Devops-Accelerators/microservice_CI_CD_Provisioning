@@ -28,7 +28,7 @@ helm init --service-account tiller --upgrade
 
 rm rbac-config.yaml
 
-helm install -n ${miroserviceName} helmchart --dry-run --debug
+helm install -n "${miroserviceName}" helmchart --dry-run --debug
 """
     
 
