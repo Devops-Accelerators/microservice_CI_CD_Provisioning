@@ -9,3 +9,4 @@ ADD context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml
 COPY target/*.war   /usr/local/tomcat/webapps/app.war
 
 EXPOSE 8080
+
