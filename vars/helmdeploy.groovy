@@ -1,7 +1,7 @@
 def call(String s) {
 
     sh """
-cat <<EOF > rbac-config.yaml
+cat >> rbac-config.yaml <<EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -19,9 +19,9 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: tiller
-    namespace: kube-system
-EOF
+    namespace: kube-system"""
 
+sh """
 kubectl apply -f rbac-config.yaml
 
 helm init --service-account tiller --upgrade
@@ -30,7 +30,5 @@ rm rbac-config.yaml
 
 sleep 10
 
-helm install helmchart --dry-run
-    
-    """
+helm install helmchart --dry-run"""
 }
