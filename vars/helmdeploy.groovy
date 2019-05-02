@@ -1,7 +1,7 @@
 def call(String s) {
 
     sh """
-cat >> rbac-config.yaml <<EOF
+cat >> rbac-config.yaml << EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -30,5 +30,5 @@ helm init --service-account tiller --upgrade
 
 sleep 10
 
-helm install helmchart --dry-run"""
+helm install -n ${s} helmchart --dry-run"""
 }
