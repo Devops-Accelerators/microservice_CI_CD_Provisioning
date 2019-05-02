@@ -67,10 +67,10 @@ node {
 	writeYaml file: filename, data: data
 	
     }
-    /*stage ('deploy to cluster')
+    stage ('deploy to cluster')
     {
     	helmdeploy "${props['deploy.microservice']}"
-    }*/
+    }
 	
 }
 		
