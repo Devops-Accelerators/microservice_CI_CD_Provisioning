@@ -24,9 +24,9 @@ subjects:
 sh """
 kubectl apply -f rbac-config.yaml
 
-helm init --service-account tiller --upgrade
-
 rm rbac-config.yaml
+
+helm init --service-account tiller --upgrade
 
 sleep 10
 
