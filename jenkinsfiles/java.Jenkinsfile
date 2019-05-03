@@ -61,7 +61,7 @@ node {
 	
 	data.image.repository = "${docImg}"
 	data.image.tag = "$BUILD_NUMBER"
-	data.service.port = "${props['deploy.port']}"
+	data.service.appPort = "${props['deploy.port']}"
 	
 	sh "rm -f helmchart/values.yaml"
 	writeYaml file: filename, data: data
