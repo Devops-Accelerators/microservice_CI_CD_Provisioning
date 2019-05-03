@@ -110,6 +110,10 @@ sonar.sources=src/main
 sonar.sourceEncoding=UTF-8
 sonar.java.binaries=target/classes
 sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
+
+					sh """
+					cat >> timestamp << EOF
+$(date)"""
 						
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
