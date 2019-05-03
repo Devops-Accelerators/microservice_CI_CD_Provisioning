@@ -118,8 +118,8 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -f ../context.xml context.xml
 					cp -f ../tomcat-users.xml tomcat-users.xml
 					
-					echo "copy helm basic template"
-					sed -i "s/microservicename/${microserviceName}/g" ../java-micro/Chart.yaml
+					#copy helm basic template
+					sed -i 's/microservicename/${microserviceName}/g' ../java-micro/Chart.yaml
 					cp -rf ../java-micro helmchart
 					
 					git config --global user.name ${commit_username}
