@@ -14,7 +14,8 @@ fullnameOverride: ""
 
 service:
   type: LoadBalancer
-  port: #the application port goes here 
+  port: 80
+  appPort: #the application port goes here
   
 ingress:
   enabled: false
