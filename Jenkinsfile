@@ -112,7 +112,7 @@ sonar.java.binaries=target/classes
 sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 
 					sh """
-					cat >> timestamp << EOF
+					cat >> timestamp.txt << EOF
 $(date)"""
 						
 					sh """ cd ${repoName.trim()}																
