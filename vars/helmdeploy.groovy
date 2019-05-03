@@ -1,6 +1,6 @@
-def call(String s) {
+def call(String micro) {
 
-    sh """
+/*    sh """
 cat >> rbac-config.yaml << EOF
 apiVersion: v1
 kind: ServiceAccount
@@ -19,16 +19,8 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: tiller
-    namespace: kube-system"""
+    namespace: kube-system""" */
 
 sh """
-kubectl apply -f rbac-config.yaml
-
-rm rbac-config.yaml
-
-helm init --service-account tiller --upgrade
-
-sleep 10
-
-helm install -n ${s} helmchart --dry-run"""
+helm install -n ${micro} helmchart --dry-run"""
 }
