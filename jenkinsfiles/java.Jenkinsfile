@@ -72,7 +72,7 @@ node {
     	//helmdeploy "${props['deploy.microservice']}"
 	withKubeConfig(credentialsId: 'kubernetes-creds', serverUrl: 'https://35.224.101.44') {
 
-		sh "kubectl get pods --all-namespaces"
+		helmdeploy "${props['deploy.microservice']}"
 	}
 	
     }
