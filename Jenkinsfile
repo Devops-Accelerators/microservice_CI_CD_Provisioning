@@ -118,8 +118,8 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					cp -f ../context.xml context.xml
 					cp -f ../tomcat-users.xml tomcat-users.xml
 					
-					#copy helm basic template
-					sed -i 's/microservicename/${microserviceName}/g' ../java-micro/Chart.yaml
+					echo "copy helm basic template"
+					sed -i "s/microservicename/${microserviceName}/g" ../java-micro/Chart.yaml
 					cp -rf ../java-micro helmchart
 					
 					git config --global user.name ${commit_username}
@@ -127,7 +127,7 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					git init
 					git add .
 					git pull
-					git commit -m "pipeline Script added by seed job" --date $(date)
+					git commit -m "pipeline Script added by seed job" | true
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
