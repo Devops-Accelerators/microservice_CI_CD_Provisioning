@@ -111,10 +111,6 @@ sonar.sourceEncoding=UTF-8
 sonar.java.binaries=target/classes
 sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 
-					sh """
-					cat >> timestamp.txt << EOF
-$(date)"""
-						
 					sh """ cd ${repoName.trim()}																
 					cp -f ../jenkinsfiles/java.Jenkinsfile Jenkinsfile
 					rm -rf helmchart
@@ -131,7 +127,7 @@ $(date)"""
 					git init
 					git add .
 					git pull
-					git commit -m "pipeline Script added by seed job"
+					git commit -m "pipeline Script added by seed job" --date $(date)
 					git remote rm origin
 					git remote add origin ${apiRepoURL}
 					git remote -v
