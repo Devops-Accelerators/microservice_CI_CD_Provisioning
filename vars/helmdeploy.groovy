@@ -22,5 +22,5 @@ subjects:
     namespace: kube-system""" */
 
 sh """
-helm install -n ${micro} helmchart --dry-run"""
+helm install -n ${micro} helmchart """
 }
