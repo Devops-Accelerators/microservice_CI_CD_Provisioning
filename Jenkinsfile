@@ -72,7 +72,7 @@ node {
   stage ('Add pipeline Scripts to Repository')
 		{
 			try{
-			withCredentials([string(credentialsId:'gitpass', variable: 'git'),
+			withCredentials([string(credentialsId:"${props['github.password']}", variable: 'git'),
 			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 					{
 					//rm -rf ${repoName.trim()}
