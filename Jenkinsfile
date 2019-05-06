@@ -72,7 +72,8 @@ node {
   stage ('Add pipeline Scripts to Repository')
 		{
 			try{
-			withCredentials([usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
+			withCredentials([string(credentialsId:'gitpass', variable: 'git'),
+			usernameColonPassword(credentialsId: 'jenkinsadminCredentials', variable: 'jenkinsAdminCredentials')]) 
 					{
 					//rm -rf ${repoName.trim()}
 					
@@ -129,10 +130,9 @@ sonar.test.exclusions=src/test/java/com/mindtree/BasicApp"""
 					git pull
 					git commit -m "pipeline Script added by seed job" | true
 					git remote rm origin
-					git remote add origin ${apiRepoURL}
+					git remote add origin https://${commit_username}:${git}@github.com/${commit_username}/${repoName.trim()}.git
 					git remote -v
-				#	git push -f origin master 
-					git push -f --all
+					git push -f origin master 
 					cd ..
 					rm -rf ${repoName.trim()}"""	
 			}
