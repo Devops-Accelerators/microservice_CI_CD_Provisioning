@@ -70,7 +70,7 @@ node {
     stage ('deploy to cluster')
     {
     	//helmdeploy "${props['deploy.microservice']}"
-	withKubeConfig(credentialsId: 'kubernetes-creds', serverUrl: 'https://35.224.101.44') {
+	withKubeConfig(credentialsId: 'kubernetes-creds', serverUrl: 'https://35.239.91.222') {
 
 		sh """ helm delete --purge ${props['deploy.microservice']} | true"""
 		helmdeploy "${props['deploy.microservice']}"
