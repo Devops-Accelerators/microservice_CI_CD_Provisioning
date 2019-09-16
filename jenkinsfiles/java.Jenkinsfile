@@ -20,7 +20,7 @@ node {
 	props = readProperties  file: """deploy.properties"""   
     }
     
-   /* stage ('Static Code Analysis')
+    stage ('Static Code Analysis')
     { 
 	    sonarexec "${props['deploy.sonarqubeserver']}"
     }
@@ -33,7 +33,7 @@ node {
      stage ('Code Coverage')
     { 
         codecoveragexec "${props['deploy.sonarqubeserver']}"
-    }*/
+    }
     stage ('create war')
     {
     	mavenbuildexec "mvn build"
